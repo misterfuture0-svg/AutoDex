@@ -169,7 +169,7 @@ if(c.wiki in cache)return cache[c.wiki];
 try{const r=await fetch("https://en.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(c.wiki.replace(/ /g,"_")));
 if(!r.ok)throw 0;const d=await r.json();return cache[c.wiki]=(d.thumbnail&&d.thumbnail.source)||null}
 catch(e){photoOK=false;$("note").style.display="block";return cache[c.wiki]=null}}
-function attach(el,c){photo(c).then(u=>{if(!u||el.querySelector("img"))return;const im=new Image();im.alt=c.brand+" "+c.model;im.loading="lazy";im.onload=()=>el.appendChild(im);im.src=u})}
+function attach(el,c){photo(c).then(u=>{if(!u||el.querySelector("img"))return;const im=new Image();im.alt=c.brand+" "+c.model;im.onload=()=>el.appendChild(im);im.src=u})}
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){io.unobserve(e.target);if(photoOK)attach(e.target,CARS[e.target.dataset.i])}}),{rootMargin:"200px"});
 function render(){
 const q=$("q").value.trim().toLowerCase(),m=$("fm").value,b=$("fb").value,f=$("ff").value,s=$("fs").value;
