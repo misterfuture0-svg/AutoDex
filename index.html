@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="description" content="AutoDex: browse 180+ car versions with specs, prices and photos. Compare cars, find your match, and estimate the cost of ownership."><meta name="theme-color" content="#0b1a46"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🚗%3C/text%3E%3C/svg%3E">
 <title>AutoDex — Find, Compare &amp; Explore Cars</title>
 <style>
 :root{--bg:#f4f6fa;--surface:#fff;--text:#0b1224;--muted:#5a6478;--line:#e2e6ee;--accent:#2563eb;--on:#fff;--chip:#eaf0ff;--shadow:0 1px 2px rgba(11,18,36,.06),0 10px 30px rgba(11,18,36,.07);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -127,9 +128,17 @@ footer{background:#050a1c;color:#9aa6c4;border:0;padding:40px 0 100px}
 .sw{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}.sq{width:32px;height:32px;border-radius:50%;border:2px solid var(--line);cursor:pointer}.sq.on{outline:3px solid var(--accent)}.sw input[type=color]{width:38px;height:34px;padding:0;border:0;background:none}.sw span{font-size:13px;color:var(--muted)}
 .cfv{background:linear-gradient(180deg,var(--chip),var(--bg));border-radius:16px;padding:20px}.cfv svg{width:100%;max-width:560px;display:block;margin:0 auto}
 .gr{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px}.gr b{flex:1;cursor:pointer}.gr select{padding:6px 10px}
+.bdg{display:inline-block;background:var(--chip);color:var(--accent);font-size:11px;font-weight:700;border-radius:99px;padding:2px 9px;margin:-4px 0 8px}
+.act{flex-wrap:wrap;margin:6px 0 2px}.act .pill{padding:5px 12px;font-size:13px}
+.feat{cursor:pointer}.feat img{transition:opacity .5s}
+.ph .art:not(.ld)::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.35),transparent 70%);animation:sh 1.3s infinite}
+@keyframes sh{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+#up{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:8;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:20px;cursor:pointer;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .2s}#up.on{opacity:1;pointer-events:auto}
+.card:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 </style>
 </head>
-<body>
+<body class="ph">
 <header><div class="wrap nav"><div class="logo">Auto<span>Dex</span></div><nav><a href="#cars" class="keep" data-t="nav_cars">Cars</a><a href="#brands" data-t="nav_brands">Brands</a><a href="#tools" data-t="nav_tools">Tools</a><a href="#" id="nc" class="keep" data-t="nav_compare">Compare</a><button class="btn" id="th" aria-label="Toggle dark mode">◐</button><div class="ctl"><select id="lg" aria-label="Language"><option value="en">EN</option><option value="ru">RU</option><option value="uz">UZ</option></select><select id="cu" aria-label="Currency"><option>USD</option><option>EUR</option><option>GBP</option><option>RUB</option><option>UZS</option></select><button class="btn" id="un" title="Units">hp · km/h</button></div></nav></div></header>
 <div class="hero"><div class="wrap hg">
 <div><h1 data-t="h1">Find, compare and explore any car.</h1><p data-t="hp">Real photos, key specs and prices for the world's most popular models, in one place.</p>
@@ -145,10 +154,11 @@ footer{background:#050a1c;color:#9aa6c4;border:0;padding:40px 0 100px}
 <section id="cars"><h2 class="t" data-t="all_cars">All cars</h2>
 <div class="tools"><button class="pill" id="favb">♡ Favorites (0)</button><select id="fd" aria-label="Drivetrain"><option value="" data-t="all_dr">All drivetrains</option></select><select id="fb" aria-label="Body type"><option value="" data-t="all_body">All body types</option></select><select id="ff" aria-label="Fuel"><option value="" data-t="all_fuel">All fuel types</option></select><select id="fs" aria-label="Sort"><option value="name" data-t="s_name">Sort: Name</option><option value="hp" data-t="s_hp">Power: high to low</option><option value="acc" data-t="s_acc">Acceleration: fastest</option><option value="price" data-t="s_price">Price: low to high</option></select><label class="rng"><span data-t="maxp">Max price</span> <b id="pv"></b><input type="range" id="fp" min="20000" max="320000" step="5000" value="320000" aria-label="Maximum price"></label></div>
 <div class="note" id="note">Live photos load when this page is hosted on your own site. Here you see illustrations instead.</div>
-<div class="count" id="cnt"></div><div class="grid" id="grid"></div>
+<div class="pills act" id="act"></div><div class="count" id="cnt"></div><div class="grid" id="grid"></div>
 <div class="mw"><button class="btn p" id="more" data-t="more">Show more cars</button></div></section>
 </main>
-<footer><div class="wrap"><div class="fg"><div><div class="logo">Auto<span>Dex</span></div><div>Find, compare and explore cars from around the world.</div></div><div><h4>Explore</h4><a href="#cars">All cars</a><a href="#brands">Brands</a><a href="#" onclick="cmp();return false">Compare</a></div><div><h4>Sources</h4><a href="https://en.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a><a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="fl">Specs and prices are approximate and vary by market, year and trim. Currency rates are fixed approximations, not live. Photos come from Wikipedia and Wikimedia Commons under their respective licenses. AutoDex v6.0</div></div></footer>
+<footer><div class="wrap"><div class="fg"><div><div class="logo">Auto<span>Dex</span></div><div>Find, compare and explore cars from around the world.</div></div><div><h4>Explore</h4><a href="#cars">All cars</a><a href="#brands">Brands</a><a href="#" onclick="cmp();return false">Compare</a></div><div><h4>Sources</h4><a href="https://en.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a><a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="fl">Specs and prices are approximate and vary by market, year and trim. Currency rates are fixed approximations, not live. Photos come from Wikipedia and Wikimedia Commons under their respective licenses. AutoDex v7.0</div></div></footer>
+<button id="up" aria-label="Back to top">↑</button>
 <div id="tray"><span id="tc"></span><button class="btn p" id="tb">Compare</button><button class="btn c" id="tx">Clear</button></div>
 <dialog id="dlg"></dialog>
 <script>
@@ -364,7 +374,7 @@ catch(e){netErr=String(e&&e.message||e)}}
 status()})();
 function status(){const n=$("note");n.style.display="block";
 n.textContent=netErr?"Couldn't load photos from Wikipedia ("+netErr+"). Showing illustrations. Photos load when this page is hosted on your own site.":"Photos found for "+nOK+" of "+new Set(CARS.map(c=>c.wiki)).size+" models"+(imgFail?" ("+imgFail+" failed to display)":"")+"."}
-function attach(el,c){ready.then(()=>{const u=cache[c.wiki];if(!u||el.querySelector("img"))return;const im=new Image();im.alt=c.brand+" "+c.model;im.onload=()=>{el.appendChild(im);setTimeout(()=>im.style.opacity=1,30)};im.onerror=()=>{imgFail++;status()};im.src=u})}
+function attach(el,c){ready.then(()=>{const u=cache[c.wiki];if(!u||el.querySelector("img"))return;const im=new Image();im.alt=c.brand+" "+c.model;im.onload=()=>{el.appendChild(im);el.classList.add("ld");setTimeout(()=>im.style.opacity=1,30)};im.onerror=()=>{imgFail++;status()};im.src=u})}
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){io.unobserve(e.target);if(photoOK)attach(e.target,CARS[e.target.dataset.i])}}),{rootMargin:"200px"});
 const key=c=>c.brand+"|"+c.model;let favOnly=false,fav=new Set();
 try{fav=new Set(JSON.parse(localStorage.getItem("ad_fav")||"[]"))}catch(e){}
@@ -378,9 +388,9 @@ function render(){const m0=+$("fp").value,mp=m0>=320000?1e9:m0;$("pv").textConte
 const q=$("q").value.trim().toLowerCase(),b=$("fb").value,f=$("ff").value,s=$("fs").value,d=$("fd").value;
 list=CARS.filter(c=>(!q||(c.brand+" "+c.line+" "+c.model).toLowerCase().includes(q))&&(!brand||c.brand===brand)&&(!b||c.body===b)&&(!f||c.fuel===f)&&(!d||c.drive===d)&&(!favOnly||fav.has(key(c)))&&c.price<=mp);
 list.sort((x,y)=>s==="hp"?y.hp-x.hp:s==="acc"?x.acc-y.acc:s==="price"?x.price-y.price:(x.brand+x.model).localeCompare(y.brand+y.model));draw()}
-function draw(){
+function draw(){actDraw();
 const v=list.slice(0,shown);$("cnt").textContent=list.length+" "+t("found");
-$("grid").innerHTML=v.length?v.map(c=>{const i=CARS.indexOf(c);return `<div class="card" data-i="${i}">${art(c,i,`<span class="tag">${c.fuel}</span><button class="fav${fav.has(key(c))?" on":""}" aria-label="Favorite">${fav.has(key(c))?"♥":"♡"}</button><button class="cmp${sel.has(i)?" on":""}">${sel.has(i)?"✓":t("addc")}</button>`)}<div class="body"><div class="brand">${c.brand}${c.line!==c.model?" · "+c.line:""}</div><h3>${c.model}</h3>${c.engine?`<div class="eng">${c.engine}</div>`:""}<div class="spec"><div>${t("power")}<b>${P(c)}</b></div><div>${AL().replace(" km/h","")}<b>${A(c)}</b></div><div>${t("drive")}<b>${c.drive}</b></div></div><div class="price"><span>${t("from")} <b>${fmt(c.price)}</b></span><span class="go">${t("details")}</span></div></div></div>`}).join(""):'<div class="empty">No cars match your filters. Try something else.</div>';
+$("grid").innerHTML=v.length?v.map(c=>{const i=CARS.indexOf(c);return `<div class="card" data-i="${i}" tabindex="0" role="button">${art(c,i,`<span class="tag">${c.fuel}</span><button class="fav${fav.has(key(c))?" on":""}" aria-label="Favorite">${fav.has(key(c))?"♥":"♡"}</button><button class="cmp${sel.has(i)?" on":""}">${sel.has(i)?"✓":t("addc")}</button>`)}<div class="body"><div class="brand">${c.brand}${c.line!==c.model?" · "+c.line:""}</div><h3>${c.model}</h3>${bdg(i)}${c.engine?`<div class="eng">${c.engine}</div>`:""}<div class="spec"><div>${t("power")}<b>${P(c)}</b></div><div>${AL().replace(" km/h","")}<b>${A(c)}</b></div><div>${t("drive")}<b>${c.drive}</b></div></div><div class="price"><span>${t("from")} <b>${fmt(c.price)}</b></span><span class="go">${t("details")}</span></div></div></div>`}).join(""):'<div class="empty">No cars match your filters. Try something else.</div>';
 $("more").parentElement.style.display=list.length>shown?"block":"none";
 document.querySelectorAll("#grid .art").forEach(a=>io.observe(a))}
 $("q").addEventListener("input",()=>{shown=24;render()});
@@ -402,7 +412,7 @@ else if(b=g("data-c")){const i=+b.dataset.c;if(sel.size<4)sel.add(i);tray();draw
 else if(b=g("data-g")){const A=$("dlg").querySelector(".art");let im=A.querySelector("img");if(!im){im=new Image();A.appendChild(im)}im.style.opacity=1;im.src=b.dataset.g}
 else if(b=g("data-s")){const u=location.href.split("#")[0]+"#car="+encodeURIComponent(b.dataset.s);(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>{b.textContent=t("copied")}).catch(()=>prompt("Link",u))}
 else if(e.target.closest("#wgo"))wizRes()});
-$("th").onclick=()=>{const d=document.documentElement,dk=(d.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"))==="dark";d.dataset.theme=dk?"light":"dark"};
+$("th").onclick=()=>{const d=document.documentElement,dk=(d.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"))==="dark";d.dataset.theme=dk?"light":"dark";savePref()};
 const L={
 en:{nav_cars:"Cars",nav_brands:"Brands",nav_compare:"Compare",h1:"Find, compare and explore any car.",hp:"Real photos, key specs and prices for the world's most popular models, in one place.",search_ph:"Search brand or model…",go:"Search",versions:"Versions",brands_stat:"Brands",fuels:"Fuel types",wz:"Find my car",brands_h:"Browse by brand",rank_h:"Rankings",all_cars:"All cars",fav:"Favorites",all_dr:"All drivetrains",all_body:"All body types",all_fuel:"All fuel types",s_name:"Sort: Name",s_hp:"Power: high to low",s_acc:"Acceleration: fastest",s_price:"Price: low to high",maxp:"Max price",any:"Any",found:"found",more:"Show more cars",from:"From",details:"Details →",power:"Power",drive:"Drivetrain",engine:"Engine",body:"Body type",fuel:"Fuel",price:"Approx. price",cls:"Class (by acceleration)",seats:"Seats",boot:"Boot space",eco:"Typical efficiency / range",save:"♡ Save to favorites",saved:"♥ Saved",addc:"+ Compare",addc2:"+ Add to compare",others:"Other versions of the",cmp_h:"Compare cars",pay_h:"Monthly payment estimate",down:"Down payment %",term:"Term (months)",apr:"Interest rate % (APR)",month:"month",copied:"Copied!",share:"Copy link",wiz_h:"Find my car",wiz_budget:"Budget",wiz_for:"Priority",wiz_go:"Show matches",p_perf:"Performance",p_val:"Value for money",p_eff:"Efficiency",p_fam:"Family & space",none:"No matches. Try a bigger budget.",founded:"Founded",r_fast:"Fastest",r_pow:"Most powerful",r_cheap:"Cheapest",r_ev:"Cheapest electric",r_val:"Best value (under $60k)",lk_rev:"Reviews",lk_safe:"Safety ratings",lk_used:"Used listings",fine:"Seats, boot space and efficiency are typical for the model line and approximate."},
 ru:{nav_cars:"Авто",nav_brands:"Бренды",nav_compare:"Сравнить",h1:"Находите, сравнивайте и изучайте любые автомобили.",hp:"Фото, характеристики и цены самых популярных моделей мира в одном месте.",search_ph:"Поиск по марке или модели…",go:"Найти",versions:"Версий",brands_stat:"Брендов",fuels:"Типов топлива",wz:"Подобрать авто",brands_h:"Выбор по бренду",rank_h:"Рейтинги",all_cars:"Все автомобили",fav:"Избранное",all_dr:"Любой привод",all_body:"Все кузова",all_fuel:"Любое топливо",s_name:"Сортировка: название",s_hp:"Мощность: по убыванию",s_acc:"Разгон: быстрее",s_price:"Цена: по возрастанию",maxp:"Макс. цена",any:"Любая",found:"найдено",more:"Показать ещё",from:"От",details:"Подробнее →",power:"Мощность",drive:"Привод",engine:"Двигатель",body:"Кузов",fuel:"Топливо",price:"Цена (прибл.)",cls:"Класс (по разгону)",seats:"Мест",boot:"Багажник",eco:"Расход / запас хода (обычно)",save:"♡ В избранное",saved:"♥ В избранном",addc:"+ Сравнить",addc2:"+ В сравнение",others:"Другие версии:",cmp_h:"Сравнение авто",pay_h:"Ежемесячный платёж (оценка)",down:"Первый взнос %",term:"Срок (мес.)",apr:"Ставка % годовых",month:"мес.",copied:"Скопировано!",share:"Копировать ссылку",wiz_h:"Подбор автомобиля",wiz_budget:"Бюджет",wiz_for:"Что важнее",wiz_go:"Показать варианты",p_perf:"Динамика",p_val:"Выгода",p_eff:"Экономичность",p_fam:"Семья и место",none:"Ничего не найдено. Увеличьте бюджет.",founded:"Основана",r_fast:"Самые быстрые",r_pow:"Самые мощные",r_cheap:"Самые дешёвые",r_ev:"Дешёвые электромобили",r_val:"Лучшая выгода (до $60 тыс.)",lk_rev:"Обзоры",lk_safe:"Безопасность",lk_used:"С пробегом",fine:"Места, багажник и расход — примерные значения для модельного ряда."},
@@ -509,7 +519,7 @@ let rk=0,curCar=null;
 function rankDraw(){$("rt").innerHTML=RK.map((r,k)=>`<button class="pill${k===rk?" on":""}" data-k="${k}">${t(r[0])}</button>`).join("");const r=RK[rk];$("rl").innerHTML=rows(CARS.map((c,i)=>[c,i]).filter(([c])=>!r[2]||r[2](c)).sort((a,b)=>r[1](a[0],b[0])).slice(0,8),r[3])}
 $("rt").onclick=e=>{const b=e.target.closest("[data-k]");if(b){rk=+b.dataset.k;rankDraw()}};
 $("rl").onclick=e=>{const b=e.target.closest("[data-j]");if(b)openCar(+b.dataset.j)};
-function applyLang(){document.documentElement.lang=lang;document.querySelectorAll("[data-t]").forEach(e=>e.textContent=t(e.dataset.t));$("q").placeholder=t("search_ph");render();rankDraw();brandInfo();saveFav();toolDraw();cotd()}
+function applyLang(){document.documentElement.lang=lang;document.querySelectorAll("[data-t]").forEach(e=>e.textContent=t(e.dataset.t));$("q").placeholder=t("search_ph");render();rankDraw();brandInfo();saveFav();toolDraw();cotd();savePref()}
 $("lg").onchange=()=>{lang=$("lg").value;applyLang()};
 $("cu").onchange=()=>{cur=$("cu").value;applyLang()};
 $("un").onclick=()=>{unit=unit==="a"?"b":"a";$("un").textContent=unit==="a"?"hp · km/h":"kW · mph";applyLang()};
@@ -536,7 +546,7 @@ const sp=S?`<tr><td>${t("seats")}</td><td>${S[0]}</td></tr>${+S[1]?`<tr><td>${t(
 $("dlg").className="";
 $("dlg").innerHTML=`<div class="dh">${art(c,i)}<button class="x" aria-label="Close" onclick="dlg.close()">×</button></div><div class="gl" id="gl"></div><div class="db"><div class="brand">${c.brand}${c.line!==c.model?" · "+c.line:""}</div><h2>${c.model}</h2><table>${c.engine?`<tr><td>${t("engine")}</td><td>${c.engine}</td></tr>`:""}<tr><td>${t("body")}</td><td>${c.body}</td></tr><tr><td>${t("fuel")}</td><td>${c.fuel}</td></tr><tr><td>${t("power")}</td><td>${P(c)} (${unit==="a"?Math.round(c.hp*.7457)+" kW":c.hp+" hp"})</td></tr><tr><td>${AL()}</td><td>${A(c)}</td></tr><tr><td>${t("drive")}</td><td>${c.drive}</td></tr><tr><td>${t("cls")}</td><td>${cls(c)}</td></tr>${sp}<tr><td>${t("price")}</td><td>${t("from")} ${fmt(c.price)}</td></tr></table>${S?`<p class="fine">${t("fine")}</p>`:""}<div class="bar"><label><span>${t("power")}</span><span>${c.hp} / ${maxHp} hp</span></label><div><i style="width:${Math.round(c.hp/maxHp*100)}%"></i></div></div><div class="pay"><h4>${t("pay_h")}</h4><div class="pg"><label>${t("down")}<input id="pd" type="number" value="20" min="0" max="90"></label><label>${t("term")}<input id="pt" type="number" value="60" min="6" max="96"></label><label>${t("apr")}<input id="pa" type="number" value="7" min="0" max="30" step="0.5"></label></div><div class="pm" id="pm"></div></div><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><button class="btn p" data-f="${i}">${f?t("saved"):t("save")}</button><button class="btn" data-c="${i}" style="border:1px solid var(--line)">${t("addc2")}</button><button class="btn" data-s="${k}" style="border:1px solid var(--line)">${t("share")}</button></div><div class="lks"><a target="_blank" rel="noopener" href="https://www.google.com/search?q=${q}+review">${t("lk_rev")} →</a><a target="_blank" rel="noopener" href="https://www.google.com/search?q=${q}+safety+rating+NCAP+IIHS">${t("lk_safe")} →</a><a target="_blank" rel="noopener" href="https://www.google.com/search?q=${q}+used+for+sale">${t("lk_used")} →</a><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/${encodeURIComponent(c.wiki.replace(/ /g,"_"))}">Wikipedia →</a></div>${sib.length?`<div class="sib"><h4>${t("others")} ${c.line}</h4><div class="pills">${sib.map(([x,j])=>`<button class="pill" data-j="${j}">${x.model} · ${P(x)}</button>`).join("")}</div></div>`:""}</div>`;
 if(!$("dlg").open)$("dlg").showModal();
-attach($("dlg").querySelector(".art"),c);calcPay();
+attach($("dlg").querySelector(".art"),c);calcPay();simCars(i);
 try{history.replaceState(null,"","#car="+encodeURIComponent(k))}catch(e){}
 gallery(c).then(g=>{const el=$("gl");if(!el||curCar!==c)return;if(!g.length){el.remove();return}el.innerHTML=g.map(u=>`<img src="${u}" data-g="${u}" alt="" loading="lazy">`).join("")})}
 
@@ -694,6 +704,29 @@ if(id==="ld"){TS.ld=+el.value;$("ldv").textContent=TS.ld+" kg";pRes()}
 else if(id==="sz"){TS.sz=+el.value;$("szv").textContent=TS.sz+'"';pRes()}
 else if(id&&id.startsWith("c_")){TS[id.slice(2)]=+el.value||0;pRes()}});
 
+Object.assign(L.en,{similar:"Similar cars",clear:"Clear all"});Object.assign(L.ru,{similar:"Похожие авто",clear:"Сбросить всё"});Object.assign(L.uz,{similar:"O'xshash avtomobillar",clear:"Hammasini tozalash"});
+const TOPN=(f,flt)=>new Set(CARS.map((c,i)=>[c,i]).filter(([c])=>!flt||flt(c)).sort((a,b)=>f(a[0],b[0])).slice(0,10).map(x=>x[1]));
+const B_FAST=TOPN((a,b)=>a.acc-b.acc),B_POW=TOPN((a,b)=>b.hp-a.hp),B_VAL=TOPN((a,b)=>b.hp/b.price-a.hp/a.price,c=>c.price<=60000);
+const bdg=i=>B_FAST.has(i)?'<span class="bdg">⚡ Top 10 fastest</span>':B_POW.has(i)?'<span class="bdg">🔥 Top 10 power</span>':B_VAL.has(i)?'<span class="bdg">💰 Best value</span>':"";
+function actDraw(){const a=[],q=$("q").value.trim();if(q)a.push(["q","“"+q+"”"]);if(brand)a.push(["brand",brand]);["fb","ff","fd"].forEach(id=>{if($(id).value)a.push([id,$(id).value])});if(+$("fp").value<320000)a.push(["fp","≤ "+fmt(+$("fp").value)]);if(favOnly)a.push(["fav","♥"]);
+$("act").innerHTML=a.length?a.map(([k,v])=>`<button class="pill on" data-x="${k}">${v} ×</button>`).join("")+`<button class="pill" data-x="all">${t("clear")}</button>`:""}
+$("act").onclick=e=>{const b=e.target.closest("[data-x]");if(!b)return;const k=b.dataset.x,all=k==="all";if(all||k==="q")$("q").value="";if(all||k==="brand"){brand="";drawPills();brandInfo()}["fb","ff","fd"].forEach(id=>{if(all||k===id)$(id).value=""});if(all||k==="fp")$("fp").value=320000;if(all||k==="fav"){favOnly=false;$("favb").classList.remove("on");saveFav()}shown=24;render()};
+function simCars(i){const c=CARS[i],l=CARS.map((x,j)=>[x,j]).filter(([x,j])=>j!==i&&x.body===c.body&&x.line!==c.line&&Math.abs(x.price-c.price)<=c.price*.3).sort((a,b)=>Math.abs(a[0].price-c.price)-Math.abs(b[0].price-c.price)).slice(0,4);
+if(l.length)$("dlg").querySelector(".db").insertAdjacentHTML("beforeend",`<div class="sib"><h4>${t("similar")}</h4><div class="pills">${l.map(([x,j])=>`<button class="pill" data-j="${j}">${x.brand} ${x.model}</button>`).join("")}</div></div>`)}
+function savePref(){try{localStorage.setItem("ad_pref",JSON.stringify({lang,cur,unit,theme:document.documentElement.dataset.theme||""}))}catch(e){}}
+async function altPhoto(title){try{const r=await fetch("https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=6&gsrsearch="+encodeURIComponent(title+" filetype:bitmap")+"&prop=imageinfo&iiprop=url%7Cmime&iiurlwidth=640");const d=await r.json();
+const u=Object.values((d.query||{}).pages||{}).sort((a,b)=>a.index-b.index).map(p=>p.imageinfo&&p.imageinfo[0]).find(x=>x&&/jpe?g/i.test(x.mime)&&x.thumburl);return u?u.thumburl:null}catch(e){return null}}
+ready.then(async()=>{if(!netErr){const miss=[...new Set(CARS.map(c=>c.wiki))].filter(x=>!cache[x]);for(let i=0;i<miss.length;i+=6)await Promise.all(miss.slice(i,i+6).map(async x=>{const u=await altPhoto(x);if(u){cache[x]=u;nOK++}}));status()}
+document.body.classList.remove("ph");document.querySelectorAll(".art[data-i]").forEach(a=>{if(!a.querySelector("img")){const c=CARS[a.dataset.i];if(c)attach(a,c)}})});
+const FT=["911 GT3","Model S Plaid","M5","Corvette Z06","Huracán Evo","Mustang Dark Horse"].map(m=>CARS.findIndex(c=>c.model===m)).filter(i=>i>=0);let fti=0;
+function feat(){const i=FT[fti%FT.length],c=CARS[i],el=$("feat");el.innerHTML=svg(c)+`<em>Featured: ${c.brand} ${c.model}</em>`;el.dataset.i=i;attach(el,c)}
+$("feat").onclick=()=>openCar(+$("feat").dataset.i);
+if(FT.length&&!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches))setInterval(()=>{fti++;feat()},6000);
+$("grid").addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.classList.contains("card")){e.preventDefault();e.target.click()}});
+document.addEventListener("keydown",e=>{if(e.key==="/"&&!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();$("q").focus()}});
+addEventListener("scroll",()=>$("up").classList.toggle("on",scrollY>700),{passive:true});
+$("up").onclick=()=>scrollTo({top:0,behavior:"smooth"});
+
 function cmp(){
 if(sel.size<2){alert("Add at least 2 cars with the + Compare button first.");return}
 const cs=[...sel].map(i=>[i,CARS[i]]),m=(k,f)=>f(...cs.map(x=>x[1][k]));
@@ -707,9 +740,10 @@ $("tb").onclick=cmp;$("nc").onclick=e=>{e.preventDefault();cmp()};
 $("dlg").addEventListener("click",e=>{if(e.target===$("dlg"))$("dlg").close()});
 drawPills();
 [["SUVs","fb","SUV"],["Electric","ff","Electric"],["Hybrids","ff","Hybrid"],["Sports coupes","fb","Coupe"],["Pickups","fb","Pickup"]].forEach(([n,id,v])=>{const b=document.createElement("button");b.textContent=n;b.onclick=()=>{$("fb").value="";$("ff").value="";brand="";drawPills();brandInfo();$(id).value=v;shown=24;render();$("cars").scrollIntoView()};$("qk").appendChild(b)});
+try{const pf=JSON.parse(localStorage.getItem("ad_pref")||"{}");if(pf.lang&&L[pf.lang])lang=pf.lang;if(pf.cur&&RATE[pf.cur])cur=pf.cur;if(pf.unit)unit=pf.unit;if(pf.theme)document.documentElement.dataset.theme=pf.theme;$("lg").value=lang;$("cu").value=cur;$("un").textContent=unit==="a"?"hp · km/h":"kW · mph"}catch(e){}
 applyLang();tray();
 const hm=location.hash.match(/^#car=(.+)/);if(hm){try{const k=decodeURIComponent(hm[1]),i=CARS.findIndex(c=>key(c)===k);if(i>=0)openCar(i)}catch(e){}}
-const fi=CARS.findIndex(c=>c.model==="911 Carrera");$("feat").insertAdjacentHTML("afterbegin",svg(CARS[fi]));if(true)attach($("feat"),CARS[fi]);
+if(FT.length)feat();
 </script>
 </body>
 </html>
