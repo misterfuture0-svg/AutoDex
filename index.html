@@ -92,7 +92,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:26px 0
 <div class="count" id="cnt"></div><div class="grid" id="grid"></div>
 <div class="mw"><button class="btn p" id="more">Show more cars</button></div></section>
 </main>
-<footer><div class="wrap">Specs and prices are approximate and vary by market, year and trim. Photos come from Wikipedia and Wikimedia Commons under their respective licenses.</div></footer>
+<footer><div class="wrap">Specs and prices are approximate and vary by market, year and trim. Photos come from Wikipedia and Wikimedia Commons under their respective licenses. AutoDex v3.1</div></footer>
 <div id="tray"><span id="tc"></span><button class="btn p" id="tb">Compare</button><button class="btn c" id="tx">Clear</button></div>
 <dialog id="dlg"></dialog>
 <script>
@@ -179,10 +179,21 @@ const svg=c=>`<svg viewBox="0 0 240 90" aria-hidden="true"><path d="M12 62c0-8 4
 const bg=c=>`background:linear-gradient(135deg,hsla(${c.hue},65%,50%,.18),hsla(${c.hue},65%,50%,.04))`;
 const art=(c,i,x="")=>`<div class="art" data-i="${i}" style="${bg(c)}">${x}${svg(c)}</div>`;
 let list=[],shown=24,photoOK=true,brand="";const cache={},sel=new Set();
-async function photo(c){if(c.wiki in cache)return cache[c.wiki];
-try{const r=await fetch("https://en.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(c.wiki.replace(/ /g,"_")));if(!r.ok)throw 0;const d=await r.json();return cache[c.wiki]=(d.thumbnail&&d.thumbnail.source)||null}
-catch(e){photoOK=false;$("note").style.display="block";return cache[c.wiki]=null}}
-function attach(el,c){photo(c).then(u=>{if(!u||el.querySelector("img"))return;const im=new Image();im.alt=c.brand+" "+c.model;im.onload=()=>el.appendChild(im);im.src=u})}
+let imgFail=0,nOK=0,netErr="";
+const ready=(async()=>{
+const ts=[...new Set(CARS.map(c=>c.wiki))];
+for(let i=0;i<ts.length;i+=40){const part=ts.slice(i,i+40);
+try{const r=await fetch("https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&redirects=1&prop=pageimages&piprop=thumbnail&pithumbsize=640&titles="+encodeURIComponent(part.join("|")));
+if(!r.ok)throw new Error("HTTP "+r.status);
+const d=await r.json(),q=d.query||{},nm={},rd={},by={};
+(q.normalized||[]).forEach(n=>nm[n.from]=n.to);(q.redirects||[]).forEach(n=>rd[n.from]=n.to);
+Object.values(q.pages||{}).forEach(p=>by[p.title]=p.thumbnail&&p.thumbnail.source);
+part.forEach(t=>{let x=nm[t]||t;x=rd[x]||x;cache[t]=by[x]||null;if(cache[t])nOK++})}
+catch(e){netErr=String(e&&e.message||e)}}
+status()})();
+function status(){const n=$("note");n.style.display="block";
+n.textContent=netErr?"Couldn't load photos from Wikipedia ("+netErr+"). Showing illustrations. Photos load when this page is hosted on your own site.":"Photos found for "+nOK+" of "+new Set(CARS.map(c=>c.wiki)).size+" models"+(imgFail?" ("+imgFail+" failed to display)":"")+"."}
+function attach(el,c){ready.then(()=>{const u=cache[c.wiki];if(!u||el.querySelector("img"))return;const im=new Image();im.alt=c.brand+" "+c.model;im.onload=()=>el.appendChild(im);im.onerror=()=>{imgFail++;status()};im.src=u})}
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){io.unobserve(e.target);if(photoOK)attach(e.target,CARS[e.target.dataset.i])}}),{rootMargin:"200px"});
 const pills=["",...uniq("brand")];
 function drawPills(){$("pills").innerHTML=pills.map(b=>`<button class="pill${b===brand?" on":""}" data-b="${b}">${b||"All brands"}</button>`).join("")}
