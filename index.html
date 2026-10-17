@@ -101,104 +101,200 @@ footer{background:#050a1c;color:#9aa6c4;border:0;padding:40px 0 100px}
 .fg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:28px}.fg .logo{color:#fff;margin-bottom:8px}.fg h4{color:#fff;margin:0 0 10px;font-size:14px}.fg a{display:block;color:#9aa6c4;text-decoration:none;padding:3px 0}.fg a:hover{color:#fff}
 .fl{border-top:1px solid #1a2547;margin-top:26px;padding-top:16px;font-size:12px}
 @media(max-width:700px){.fg{grid-template-columns:1fr}.rng{margin-left:0;width:100%}.rng input{flex:1}}
+.fav{position:absolute;right:10px;bottom:10px;z-index:2;border:0;border-radius:50%;width:34px;height:34px;background:var(--surface);color:#e11d48;font-size:18px;cursor:pointer}.eng{color:var(--muted);font-size:13px;margin:-6px 0 12px}.sib h4{margin:22px 0 10px;font-size:14px}.sib .pills{flex-wrap:wrap;overflow:visible}.tools .pill{padding:9px 16px}.tools .pill.on{background:#e11d48;border-color:#e11d48;color:#fff}
 </style>
 </head>
 <body>
-<header><div class="wrap nav"><div class="logo">Auto<span>Dex</span></div><nav><a href="#cars" class="keep">Cars</a><a href="#brands">Brands</a><a href="#" id="nc" class="keep">Compare</a></nav></div></header>
+<header><div class="wrap nav"><div class="logo">Auto<span>Dex</span></div><nav><a href="#cars" class="keep">Cars</a><a href="#brands">Brands</a><a href="#" id="nc" class="keep">Compare</a><button class="btn" id="th" aria-label="Toggle dark mode">◐</button></nav></div></header>
 <div class="hero"><div class="wrap hg">
 <div><h1>Find, compare and explore any car.</h1><p>Real photos, key specs and prices for the world's most popular models, in one place.</p>
 <div class="sb"><input id="q" type="search" placeholder="Search brand or model…" aria-label="Search cars"><button id="go">Search</button></div>
-<div class="qk" id="qk"></div><div class="stats"><div><b id="sN">0</b><span>Models</span></div><div><b id="sB">0</b><span>Brands</span></div><div><b>4</b><span>Fuel types</span></div></div></div>
+<div class="qk" id="qk"></div><div class="stats"><div><b id="sN">0</b><span>Versions</span></div><div><b id="sB">0</b><span>Brands</span></div><div><b>4</b><span>Fuel types</span></div></div></div>
 <div class="feat" id="feat"><em>Featured: Porsche 911</em></div>
 </div></div>
 <main class="wrap">
 <section id="brands"><h2 class="t">Browse by brand</h2><div class="pills" id="pills"></div></section>
 <section id="cars"><h2 class="t">All cars</h2>
-<div class="tools"><select id="fb" aria-label="Body type"><option value="">All body types</option></select><select id="ff" aria-label="Fuel"><option value="">All fuel types</option></select><select id="fs" aria-label="Sort"><option value="name">Sort: Name</option><option value="hp">Power: high to low</option><option value="acc">0–100: fastest</option><option value="price">Price: low to high</option></select><label class="rng">Max price <b id="pv"></b><input type="range" id="fp" min="20000" max="320000" step="5000" value="320000" aria-label="Maximum price"></label></div>
+<div class="tools"><button class="pill" id="favb">♡ Favorites (0)</button><select id="fd" aria-label="Drivetrain"><option value="">All drivetrains</option></select><select id="fb" aria-label="Body type"><option value="">All body types</option></select><select id="ff" aria-label="Fuel"><option value="">All fuel types</option></select><select id="fs" aria-label="Sort"><option value="name">Sort: Name</option><option value="hp">Power: high to low</option><option value="acc">0–100: fastest</option><option value="price">Price: low to high</option></select><label class="rng">Max price <b id="pv"></b><input type="range" id="fp" min="20000" max="320000" step="5000" value="320000" aria-label="Maximum price"></label></div>
 <div class="note" id="note">Live photos load when this page is hosted on your own site. Here you see illustrations instead.</div>
 <div class="count" id="cnt"></div><div class="grid" id="grid"></div>
 <div class="mw"><button class="btn p" id="more">Show more cars</button></div></section>
 </main>
-<footer><div class="wrap"><div class="fg"><div><div class="logo">Auto<span>Dex</span></div><div>Find, compare and explore cars from around the world.</div></div><div><h4>Explore</h4><a href="#cars">All cars</a><a href="#brands">Brands</a><a href="#" onclick="cmp();return false">Compare</a></div><div><h4>Sources</h4><a href="https://en.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a><a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="fl">Specs and prices are approximate and vary by market, year and trim. Photos come from Wikipedia and Wikimedia Commons under their respective licenses. AutoDex v3.2</div></div></footer>
+<footer><div class="wrap"><div class="fg"><div><div class="logo">Auto<span>Dex</span></div><div>Find, compare and explore cars from around the world.</div></div><div><h4>Explore</h4><a href="#cars">All cars</a><a href="#brands">Brands</a><a href="#" onclick="cmp();return false">Compare</a></div><div><h4>Sources</h4><a href="https://en.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a><a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="fl">Specs and prices are approximate and vary by market, year and trim. Photos come from Wikipedia and Wikimedia Commons under their respective licenses. AutoDex v4.0</div></div></footer>
 <div id="tray"><span id="tc"></span><button class="btn p" id="tb">Compare</button><button class="btn c" id="tx">Clear</button></div>
 <dialog id="dlg"></dialog>
 <script>
-const RAW=`Toyota|Camry|Sedan|Hybrid|225|7.2|FWD|29000
-Toyota|Corolla|Sedan|Petrol|169|8.5|FWD|23000
-Toyota|RAV4|SUV|Hybrid|219|7.8|AWD|33000
-Toyota|Land Cruiser|SUV|Diesel|304|8.0|4WD|85000|Toyota Land Cruiser (J300)
-Toyota|Prius|Hatchback|Hybrid|196|7.0|FWD|29000
-Toyota|Supra|Coupe|Petrol|382|4.1|RWD|56000|Toyota GR Supra
-Toyota|Hilux|Pickup|Diesel|204|10.0|4WD|35000
-Honda|Civic|Sedan|Petrol|158|8.0|FWD|24000
-Honda|Accord|Sedan|Hybrid|204|7.1|FWD|30000
-Honda|CR-V|SUV|Hybrid|204|7.5|AWD|34000
-Tesla|Model 3|Sedan|Electric|480|4.2|AWD|40000
-Tesla|Model Y|SUV|Electric|456|4.8|AWD|45000
-Tesla|Model S|Sedan|Electric|670|3.1|AWD|75000
-Tesla|Model X|SUV|Electric|670|3.8|AWD|80000
-BMW|3 Series|Sedan|Petrol|255|5.6|RWD|46000
-BMW|5 Series|Sedan|Petrol|255|6.2|RWD|58000
-BMW|X5|SUV|Petrol|375|5.4|AWD|66000
-BMW|M3|Sedan|Petrol|473|3.9|RWD|80000
-BMW|i4|Sedan|Electric|335|5.7|RWD|54000
-Mercedes-Benz|C-Class|Sedan|Hybrid|204|7.3|RWD|47000
-Mercedes-Benz|E-Class|Sedan|Petrol|258|6.2|RWD|62000
-Mercedes-Benz|S-Class|Sedan|Petrol|435|5.0|AWD|118000
-Mercedes-Benz|G-Class|SUV|Petrol|416|5.6|4WD|140000
-Mercedes-Benz|GLC|SUV|Hybrid|258|6.2|AWD|52000|Mercedes-Benz GLC-Class
-Audi|A4|Sedan|Petrol|261|5.4|AWD|46000
-Audi|A6|Sedan|Petrol|261|6.1|AWD|58000
-Audi|Q5|SUV|Petrol|261|6.1|AWD|50000
-Audi|Q7|SUV|Petrol|335|5.6|AWD|68000
-Audi|e-tron GT|Sedan|Electric|522|4.1|AWD|106000
-Audi|R8|Coupe|Petrol|562|3.4|AWD|160000
-Ford|Mustang GT|Coupe|Petrol|480|4.3|RWD|43000|Ford Mustang
-Ford|F-150|Pickup|Petrol|400|5.5|4WD|40000
-Ford|Explorer|SUV|Petrol|300|6.5|AWD|40000
-Ford|Bronco|SUV|Petrol|300|7.0|4WD|40000
-Hyundai|Tucson|SUV|Petrol|187|8.9|AWD|29000
-Hyundai|Sonata|Sedan|Petrol|191|8.0|FWD|28000
-Hyundai|Elantra|Sedan|Petrol|147|9.0|FWD|22000
-Hyundai|Ioniq 5|SUV|Electric|320|5.1|AWD|48000
-Kia|Sportage|SUV|Hybrid|227|8.0|AWD|32000
-Kia|K5|Sedan|Petrol|191|8.0|FWD|27000
-Kia|Sorento|SUV|Hybrid|227|8.5|AWD|40000
-Kia|EV6|SUV|Electric|320|5.1|AWD|50000
-Kia|Stinger|Sedan|Petrol|368|4.9|AWD|52000
-Porsche|911 Carrera|Coupe|Petrol|379|4.2|RWD|120000|Porsche 911
-Porsche|Cayenne|SUV|Petrol|348|5.6|AWD|90000
-Porsche|Taycan|Sedan|Electric|530|4.0|AWD|110000
-Porsche|Macan|SUV|Petrol|261|6.1|AWD|62000
-Porsche|Panamera|Sedan|Petrol|348|5.1|AWD|100000
-Volkswagen|Golf GTI|Hatchback|Petrol|245|6.2|FWD|34000
-Volkswagen|Passat|Sedan|Petrol|190|7.9|FWD|36000
-Volkswagen|Tiguan|SUV|Petrol|184|8.4|AWD|31000
-Volkswagen|ID.4|SUV|Electric|295|5.4|AWD|45000
-Chevrolet|Camaro|Coupe|Petrol|455|4.0|RWD|42000
-Chevrolet|Corvette|Coupe|Petrol|495|2.9|RWD|70000
-Chevrolet|Tahoe|SUV|Petrol|355|7.0|4WD|58000
-Nissan|Altima|Sedan|Petrol|188|7.5|FWD|28000
-Nissan|GT-R|Coupe|Petrol|565|2.9|AWD|120000
-Nissan|Leaf|Hatchback|Electric|214|6.9|FWD|36000
-Nissan|Patrol|SUV|Petrol|425|6.0|4WD|65000
-Mazda|Mazda3|Hatchback|Petrol|186|7.5|FWD|25000
-Mazda|CX-5|SUV|Petrol|187|8.5|AWD|30000
-Mazda|MX-5|Convertible|Petrol|181|6.5|RWD|30000|Mazda MX-5
-Lexus|RX|SUV|Hybrid|246|7.5|AWD|56000
-Lexus|ES|Sedan|Hybrid|215|8.1|FWD|45000
-Land Rover|Defender|SUV|Diesel|296|6.7|4WD|60000
-Land Rover|Range Rover|SUV|Petrol|523|4.6|AWD|120000|Range Rover
-Lamborghini|Huracán|Coupe|Petrol|631|3.2|AWD|250000
-Ferrari|296 GTB|Coupe|Hybrid|818|2.9|RWD|320000
-Subaru|Outback|Wagon|Petrol|182|8.9|AWD|31000
-Volvo|XC90|SUV|Hybrid|455|5.4|AWD|75000
-Jeep|Wrangler|SUV|Petrol|285|7.0|4WD|40000
-BYD|Seal|Sedan|Electric|530|3.8|AWD|48000`;
-const CARS=RAW.split("\n").map(r=>{const a=r.split("|");const h=[...a[0]].reduce((s,c)=>(s*31+c.charCodeAt(0))%360,7);return{brand:a[0],model:a[1],body:a[2],fuel:a[3],hp:+a[4],acc:+a[5],drive:a[6],price:+a[7],wiki:a[8]||a[0]+" "+a[1],hue:h}});
+const RAW=`Toyota|RAV4|SUV|Hybrid|219|7.8|AWD|33000|Toyota RAV4||RAV4
+Toyota|Prius|Hatchback|Hybrid|196|7.0|FWD|29000|Toyota Prius||Prius
+Toyota|Supra|Coupe|Petrol|382|4.1|RWD|56000|Toyota GR Supra||Supra
+Toyota|Hilux|Pickup|Diesel|204|10.0|4WD|35000|Toyota Hilux||Hilux
+Honda|Accord|Sedan|Hybrid|204|7.1|FWD|30000|Honda Accord||Accord
+Honda|CR-V|SUV|Hybrid|204|7.5|AWD|34000|Honda CR-V||CR-V
+BMW|i4|Sedan|Electric|335|5.7|RWD|54000|BMW i4||i4
+Mercedes-Benz|GLC|SUV|Hybrid|258|6.2|AWD|52000|Mercedes-Benz GLC-Class||GLC
+Audi|Q5|SUV|Petrol|261|6.1|AWD|50000|Audi Q5||Q5
+Audi|Q7|SUV|Petrol|335|5.6|AWD|68000|Audi Q7||Q7
+Audi|e-tron GT|Sedan|Electric|522|4.1|AWD|106000|Audi e-tron GT||e-tron GT
+Audi|R8|Coupe|Petrol|562|3.4|AWD|160000|Audi R8||R8
+Ford|Explorer|SUV|Petrol|300|6.5|AWD|40000|Ford Explorer||Explorer
+Ford|Bronco|SUV|Petrol|300|7.0|4WD|40000|Ford Bronco||Bronco
+Hyundai|Tucson|SUV|Petrol|187|8.9|AWD|29000|Hyundai Tucson||Tucson
+Hyundai|Sonata|Sedan|Petrol|191|8.0|FWD|28000|Hyundai Sonata||Sonata
+Hyundai|Ioniq 5|SUV|Electric|320|5.1|AWD|48000|Hyundai Ioniq 5||Ioniq 5
+Kia|Sportage|SUV|Hybrid|227|8.0|AWD|32000|Kia Sportage||Sportage
+Kia|K5|Sedan|Petrol|191|8.0|FWD|27000|Kia K5||K5
+Kia|Sorento|SUV|Hybrid|227|8.5|AWD|40000|Kia Sorento||Sorento
+Kia|EV6|SUV|Electric|320|5.1|AWD|50000|Kia EV6||EV6
+Kia|Stinger|Sedan|Petrol|368|4.9|AWD|52000|Kia Stinger||Stinger
+Porsche|Macan|SUV|Petrol|261|6.1|AWD|62000|Porsche Macan||Macan
+Porsche|Panamera|Sedan|Petrol|348|5.1|AWD|100000|Porsche Panamera||Panamera
+Volkswagen|Passat|Sedan|Petrol|190|7.9|FWD|36000|Volkswagen Passat||Passat
+Volkswagen|Tiguan|SUV|Petrol|184|8.4|AWD|31000|Volkswagen Tiguan||Tiguan
+Volkswagen|ID.4|SUV|Electric|295|5.4|AWD|45000|Volkswagen ID.4||ID.4
+Chevrolet|Tahoe|SUV|Petrol|355|7.0|4WD|58000|Chevrolet Tahoe||Tahoe
+Nissan|Altima|Sedan|Petrol|188|7.5|FWD|28000|Nissan Altima||Altima
+Nissan|Leaf|Hatchback|Electric|214|6.9|FWD|36000|Nissan Leaf||Leaf
+Nissan|Patrol|SUV|Petrol|425|6.0|4WD|65000|Nissan Patrol||Patrol
+Mazda|Mazda3|Hatchback|Petrol|186|7.5|FWD|25000|Mazda Mazda3||Mazda3
+Mazda|CX-5|SUV|Petrol|187|8.5|AWD|30000|Mazda CX-5||CX-5
+Mazda|MX-5|Convertible|Petrol|181|6.5|RWD|30000|Mazda MX-5||MX-5
+Lexus|ES|Sedan|Hybrid|215|8.1|FWD|45000|Lexus ES||ES
+Ferrari|296 GTB|Coupe|Hybrid|818|2.9|RWD|320000|Ferrari 296 GTB||296 GTB
+Subaru|Outback|Wagon|Petrol|182|8.9|AWD|31000|Subaru Outback||Outback
+BYD|Seal|Sedan|Electric|530|3.8|AWD|48000|BYD Seal||Seal
+BMW|3 Series 318i|Sedan|Petrol|156|8.4|RWD|42000|BMW 3 Series|2.0L I4 turbo|3 Series
+BMW|3 Series 320i|Sedan|Petrol|184|7.3|RWD|44000|BMW 3 Series|2.0L I4 turbo|3 Series
+BMW|3 Series 330i|Sedan|Petrol|255|5.6|RWD|48000|BMW 3 Series|2.0L I4 turbo|3 Series
+BMW|3 Series 330e|Sedan|Hybrid|292|5.9|RWD|53000|BMW 3 Series|2.0L I4 PHEV|3 Series
+BMW|M340i|Sedan|Petrol|374|4.4|AWD|60000|BMW 3 Series|3.0L I6 turbo|3 Series
+BMW|M3|Sedan|Petrol|473|3.9|RWD|80000|BMW M3|3.0L I6 twin-turbo|3 Series
+BMW|M3 Competition xDrive|Sedan|Petrol|503|3.5|AWD|95000|BMW M3|3.0L I6 twin-turbo|3 Series
+BMW|5 Series 520i|Sedan|Petrol|197|7.5|RWD|56000|BMW 5 Series|2.0L I4 turbo|5 Series
+BMW|5 Series 530i|Sedan|Petrol|258|6.2|RWD|60000|BMW 5 Series|2.0L I4 turbo|5 Series
+BMW|5 Series 540i xDrive|Sedan|Petrol|375|4.9|AWD|68000|BMW 5 Series|3.0L I6 turbo|5 Series
+BMW|M550i xDrive|Sedan|Petrol|523|3.8|AWD|85000|BMW 5 Series|4.4L V8 twin-turbo|5 Series
+BMW|5 Series i5 eDrive40|Sedan|Electric|335|6.0|RWD|67000|BMW 5 Series|Electric motor|5 Series
+BMW|5 Series i5 M60 xDrive|Sedan|Electric|593|3.8|AWD|85000|BMW 5 Series|Dual electric motors|5 Series
+BMW|M5|Sedan|Hybrid|717|3.4|AWD|120000|BMW M5|4.4L V8 PHEV|5 Series
+BMW|X5 xDrive40i|SUV|Petrol|375|5.4|AWD|66000|BMW X5|3.0L I6 turbo|X5
+BMW|X5 xDrive50e|SUV|Hybrid|483|4.8|AWD|78000|BMW X5|3.0L I6 PHEV|X5
+BMW|X5 M60i|SUV|Petrol|523|4.3|AWD|85000|BMW X5|4.4L V8 twin-turbo|X5
+BMW|X5 M Competition|SUV|Petrol|617|3.7|AWD|130000|BMW X5 M|4.4L V8 twin-turbo|X5
+Mercedes-Benz|C-Class C200|Sedan|Hybrid|204|7.3|RWD|47000|Mercedes-Benz C-Class|1.5L I4 mild-hybrid|C-Class
+Mercedes-Benz|C-Class C300|Sedan|Petrol|258|6.0|RWD|52000|Mercedes-Benz C-Class|2.0L I4 turbo|C-Class
+Mercedes-Benz|C-Class C300 e|Sedan|Hybrid|313|5.7|RWD|60000|Mercedes-Benz C-Class|2.0L I4 PHEV|C-Class
+Mercedes-Benz|AMG C43|Sedan|Petrol|402|4.6|AWD|63000|Mercedes-Benz C-Class|2.0L I4 turbo|C-Class
+Mercedes-Benz|AMG C63 S E Performance|Sedan|Hybrid|671|3.4|AWD|100000|Mercedes-Benz C-Class|2.0L I4 PHEV|C-Class
+Mercedes-Benz|E-Class E200|Sedan|Hybrid|204|7.8|RWD|55000|Mercedes-Benz E-Class|2.0L I4 mild-hybrid|E-Class
+Mercedes-Benz|E-Class E300|Sedan|Petrol|258|6.2|RWD|62000|Mercedes-Benz E-Class|2.0L I4 turbo|E-Class
+Mercedes-Benz|E-Class E450 4MATIC|Sedan|Petrol|375|4.9|AWD|72000|Mercedes-Benz E-Class|3.0L I6 turbo|E-Class
+Mercedes-Benz|AMG E53 Hybrid|Sedan|Hybrid|604|3.8|AWD|92000|Mercedes-Benz E-Class|3.0L I6 PHEV|E-Class
+Mercedes-Benz|AMG E63 S|Sedan|Petrol|603|3.4|AWD|110000|Mercedes-Benz E-Class|4.0L V8 twin-turbo|E-Class
+Mercedes-Benz|S-Class S450|Sedan|Hybrid|367|5.1|AWD|112000|Mercedes-Benz S-Class|3.0L I6 mild-hybrid|S-Class
+Mercedes-Benz|S-Class S500|Sedan|Hybrid|429|4.9|AWD|118000|Mercedes-Benz S-Class|3.0L I6 mild-hybrid|S-Class
+Mercedes-Benz|S-Class S580|Sedan|Petrol|496|4.4|AWD|125000|Mercedes-Benz S-Class|4.0L V8 twin-turbo|S-Class
+Mercedes-Benz|AMG S63 E Performance|Sedan|Hybrid|791|3.3|AWD|185000|Mercedes-Benz S-Class|4.0L V8 PHEV|S-Class
+Mercedes-Benz|Maybach S680|Sedan|Petrol|621|4.5|AWD|230000|Mercedes-Benz S-Class|6.0L V12 twin-turbo|S-Class
+Mercedes-Benz|G-Class G400 d|SUV|Diesel|326|6.4|4WD|140000|Mercedes-Benz G-Class|3.0L I6 turbo diesel|G-Class
+Mercedes-Benz|G-Class G550|SUV|Petrol|416|5.6|4WD|150000|Mercedes-Benz G-Class|4.0L V8 twin-turbo|G-Class
+Mercedes-Benz|AMG G63|SUV|Petrol|577|4.4|4WD|180000|Mercedes-Benz G-Class|4.0L V8 twin-turbo|G-Class
+Audi|A3 35 TFSI|Hatchback|Petrol|150|8.4|FWD|34000|Audi A3|1.5L I4 turbo|A3
+Audi|S3|Hatchback|Petrol|306|4.7|AWD|46000|Audi A3|2.0L I4 turbo|A3
+Audi|RS3|Hatchback|Petrol|394|3.8|AWD|62000|Audi A3|2.5L I5 turbo|A3
+Audi|A4 35 TFSI|Sedan|Petrol|150|8.9|FWD|42000|Audi A4|2.0L I4 turbo|A4
+Audi|A4 40 TFSI|Sedan|Petrol|204|7.3|FWD|44000|Audi A4|2.0L I4 turbo|A4
+Audi|A4 45 TFSI quattro|Sedan|Petrol|261|5.4|AWD|46000|Audi A4|2.0L I4 turbo|A4
+Audi|S4|Sedan|Petrol|349|4.7|AWD|56000|Audi A4|3.0L V6 turbo|A4
+Audi|A6 45 TFSI|Sedan|Petrol|265|6.1|AWD|58000|Audi A6|2.0L I4 turbo|A6
+Audi|A6 55 TFSI|Sedan|Petrol|340|5.1|AWD|68000|Audi A6|3.0L V6 turbo|A6
+Audi|S6|Sedan|Petrol|444|4.4|AWD|80000|Audi A6|2.9L V6 twin-turbo|A6
+Toyota|Camry 2.5 Petrol|Sedan|Petrol|203|8.0|FWD|28000|Toyota Camry|2.5L I4|Camry
+Toyota|Camry 2.5 Hybrid|Sedan|Hybrid|225|7.2|FWD|29000|Toyota Camry|2.5L I4 hybrid|Camry
+Toyota|Camry 3.5 V6|Sedan|Petrol|301|5.8|FWD|35000|Toyota Camry|3.5L V6|Camry
+Toyota|Corolla 1.8 Hybrid|Sedan|Hybrid|122|10.9|FWD|25000|Toyota Corolla|1.8L I4 hybrid|Corolla
+Toyota|Corolla 2.0 Petrol|Sedan|Petrol|169|8.5|FWD|23000|Toyota Corolla|2.0L I4|Corolla
+Toyota|GR Corolla|Sedan|Petrol|300|4.9|AWD|40000|Toyota GR Corolla|1.6L I3 turbo|Corolla
+Toyota|Land Cruiser 300 3.3D|SUV|Diesel|304|8.0|4WD|85000|Toyota Land Cruiser (J300)|3.3L V6 twin-turbo diesel|Land Cruiser
+Toyota|Land Cruiser 300 3.5 V6|SUV|Petrol|409|6.7|4WD|90000|Toyota Land Cruiser (J300)|3.5L V6 twin-turbo|Land Cruiser
+Tesla|Model 3 Rear-Wheel Drive|Sedan|Electric|283|6.1|RWD|39000|Tesla Model 3|Single electric motor|Model 3
+Tesla|Model 3 Long Range AWD|Sedan|Electric|394|4.2|AWD|46000|Tesla Model 3|Dual electric motors|Model 3
+Tesla|Model 3 Performance|Sedan|Electric|510|3.1|AWD|56000|Tesla Model 3|Dual electric motors|Model 3
+Tesla|Model Y Rear-Wheel Drive|SUV|Electric|299|6.9|RWD|45000|Tesla Model Y|Single electric motor|Model Y
+Tesla|Model Y Long Range AWD|SUV|Electric|384|4.8|AWD|50000|Tesla Model Y|Dual electric motors|Model Y
+Tesla|Model Y Performance|SUV|Electric|510|3.7|AWD|57000|Tesla Model Y|Dual electric motors|Model Y
+Tesla|Model S Dual Motor|Sedan|Electric|670|3.1|AWD|75000|Tesla Model S|Dual electric motors|Model S
+Tesla|Model S Plaid|Sedan|Electric|1020|2.1|AWD|90000|Tesla Model S|Tri electric motors|Model S
+Tesla|Model X Dual Motor|SUV|Electric|670|3.8|AWD|80000|Tesla Model X|Dual electric motors|Model X
+Tesla|Model X Plaid|SUV|Electric|1020|2.6|AWD|95000|Tesla Model X|Tri electric motors|Model X
+Porsche|911 Carrera|Coupe|Petrol|379|4.2|RWD|120000|Porsche 911|3.0L flat-6 twin-turbo|911
+Porsche|911 Carrera S|Coupe|Petrol|443|3.5|RWD|140000|Porsche 911|3.0L flat-6 twin-turbo|911
+Porsche|911 Carrera 4S|Coupe|Petrol|443|3.4|AWD|148000|Porsche 911|3.0L flat-6 twin-turbo|911
+Porsche|911 Turbo S|Coupe|Petrol|640|2.7|AWD|230000|Porsche 911 Turbo|3.7L flat-6 twin-turbo|911
+Porsche|911 GT3|Coupe|Petrol|502|3.4|RWD|190000|Porsche 911 GT3|4.0L flat-6|911
+Porsche|911 GT3 RS|Coupe|Petrol|518|3.0|RWD|240000|Porsche 911 GT3|4.0L flat-6|911
+Porsche|Taycan 4S|Sedan|Electric|530|4.0|AWD|110000|Porsche Taycan|Dual electric motors|Taycan
+Porsche|Taycan Turbo|Sedan|Electric|872|3.0|AWD|175000|Porsche Taycan|Dual electric motors|Taycan
+Porsche|Taycan Turbo S|Sedan|Electric|938|2.4|AWD|210000|Porsche Taycan|Dual electric motors|Taycan
+Porsche|Cayenne|SUV|Petrol|348|5.6|AWD|90000|Porsche Cayenne|3.0L V6 turbo|Cayenne
+Porsche|Cayenne S|SUV|Petrol|468|4.7|AWD|105000|Porsche Cayenne|2.9L V6 twin-turbo|Cayenne
+Porsche|Cayenne E-Hybrid|SUV|Hybrid|463|5.0|AWD|95000|Porsche Cayenne|3.0L V6 PHEV|Cayenne
+Porsche|Cayenne Turbo GT|SUV|Petrol|631|3.3|AWD|195000|Porsche Cayenne|4.0L V8 twin-turbo|Cayenne
+Ford|Mustang EcoBoost|Coupe|Petrol|315|5.0|RWD|32000|Ford Mustang|2.3L I4 turbo|Mustang
+Ford|Mustang GT|Coupe|Petrol|480|4.3|RWD|43000|Ford Mustang|5.0L V8|Mustang
+Ford|Mustang Mach 1|Coupe|Petrol|480|4.1|RWD|60000|Ford Mustang|5.0L V8|Mustang
+Ford|Mustang Dark Horse|Coupe|Petrol|500|3.9|RWD|62000|Ford Mustang|5.0L V8|Mustang
+Ford|Mustang Shelby GT500|Coupe|Petrol|760|3.5|RWD|80000|Shelby Mustang|5.2L V8 supercharged|Mustang
+Ford|F-150 EcoBoost 3.5|Pickup|Petrol|400|5.5|4WD|48000|Ford F-Series|3.5L V6 twin-turbo|F-150
+Ford|F-150 5.0 V8|Pickup|Petrol|400|6.0|4WD|50000|Ford F-Series|5.0L V8|F-150
+Ford|F-150 Raptor|Pickup|Petrol|450|5.2|4WD|80000|Ford F-Series|3.5L V6 twin-turbo|F-150
+Ford|F-150 Lightning|Pickup|Electric|580|4.0|4WD|65000|Ford F-Series|Dual electric motors|F-150
+Volkswagen|Golf 1.5 TSI|Hatchback|Petrol|150|8.5|FWD|27000|Volkswagen Golf|1.5L I4 turbo|Golf
+Volkswagen|Golf GTI|Hatchback|Petrol|245|6.2|FWD|34000|Volkswagen Golf|2.0L I4 turbo|Golf
+Volkswagen|Golf GTI Clubsport|Hatchback|Petrol|300|5.6|FWD|42000|Volkswagen Golf|2.0L I4 turbo|Golf
+Volkswagen|Golf R|Hatchback|Petrol|320|4.7|AWD|46000|Volkswagen Golf R|2.0L I4 turbo|Golf
+Honda|Civic LX 2.0|Sedan|Petrol|158|8.0|FWD|24000|Honda Civic|2.0L I4|Civic
+Honda|Civic Sport Touring 1.5T|Sedan|Petrol|180|7.6|FWD|29000|Honda Civic|1.5L I4 turbo|Civic
+Honda|Civic Type R|Sedan|Petrol|315|5.4|FWD|44000|Honda Civic Type R|2.0L I4 turbo|Civic
+Hyundai|Elantra SE 2.0|Sedan|Petrol|147|9.0|FWD|22000|Hyundai Elantra|2.0L I4|Elantra
+Hyundai|Elantra N Line|Sedan|Petrol|201|7.5|FWD|27000|Hyundai Elantra|1.6L I4 turbo|Elantra
+Hyundai|Elantra N|Sedan|Petrol|276|5.3|FWD|34000|Hyundai Elantra N|2.0L I4 turbo|Elantra
+Nissan|GT-R Premium|Coupe|Petrol|565|2.9|AWD|120000|Nissan GT-R|3.8L V6 twin-turbo|GT-R
+Nissan|GT-R T-spec|Coupe|Petrol|565|2.9|AWD|140000|Nissan GT-R|3.8L V6 twin-turbo|GT-R
+Nissan|GT-R NISMO|Coupe|Petrol|600|2.5|AWD|220000|Nissan GT-R|3.8L V6 twin-turbo|GT-R
+Chevrolet|Corvette Stingray|Coupe|Petrol|495|2.9|RWD|70000|Chevrolet Corvette|6.2L V8|Corvette
+Chevrolet|Corvette Z06|Coupe|Petrol|670|2.6|RWD|110000|Chevrolet Corvette|5.5L V8 flat-plane|Corvette
+Chevrolet|Corvette E-Ray|Coupe|Hybrid|655|2.5|AWD|105000|Chevrolet Corvette|6.2L V8 + electric motor|Corvette
+Chevrolet|Corvette ZR1|Coupe|Petrol|1064|2.3|RWD|180000|Chevrolet Corvette|5.5L V8 twin-turbo|Corvette
+Chevrolet|Camaro LT 2.0T|Coupe|Petrol|275|5.4|RWD|28000|Chevrolet Camaro|2.0L I4 turbo|Camaro
+Chevrolet|Camaro SS|Coupe|Petrol|455|4.0|RWD|42000|Chevrolet Camaro|6.2L V8|Camaro
+Chevrolet|Camaro ZL1|Coupe|Petrol|650|3.5|RWD|65000|Chevrolet Camaro|6.2L V8 supercharged|Camaro
+Lamborghini|Huracán Evo|Coupe|Petrol|631|2.9|AWD|250000|Lamborghini Huracán|5.2L V10|Huracán
+Lamborghini|Huracán Tecnica|Coupe|Petrol|631|3.2|RWD|240000|Lamborghini Huracán|5.2L V10|Huracán
+Lamborghini|Huracán STO|Coupe|Petrol|631|3.0|RWD|330000|Lamborghini Huracán|5.2L V10|Huracán
+Lamborghini|Urus S|SUV|Petrol|657|3.5|AWD|240000|Lamborghini Urus|4.0L V8 twin-turbo|Urus
+Lamborghini|Urus Performante|SUV|Petrol|657|3.3|AWD|270000|Lamborghini Urus|4.0L V8 twin-turbo|Urus
+Lexus|RX 350|SUV|Petrol|275|7.8|AWD|50000|Lexus RX|2.4L I4 turbo|RX
+Lexus|RX 350h|SUV|Hybrid|246|7.5|AWD|56000|Lexus RX|2.5L I4 hybrid|RX
+Lexus|RX 500h F Sport|SUV|Hybrid|366|6.2|AWD|68000|Lexus RX|2.4L I4 turbo hybrid|RX
+Land Rover|Defender 90 P300|SUV|Petrol|296|7.1|4WD|55000|Land Rover Defender|2.0L I4 turbo|Defender
+Land Rover|Defender 110 D300|SUV|Diesel|296|6.7|4WD|62000|Land Rover Defender|3.0L I6 turbo diesel|Defender
+Land Rover|Defender OCTA|SUV|Petrol|626|3.8|4WD|145000|Land Rover Defender|4.4L V8 twin-turbo|Defender
+Land Rover|Range Rover D350|SUV|Diesel|345|6.1|AWD|110000|Range Rover|3.0L I6 mild-hybrid diesel|Range Rover
+Land Rover|Range Rover P530|SUV|Petrol|523|4.6|AWD|125000|Range Rover|4.4L V8 twin-turbo|Range Rover
+Land Rover|Range Rover SV|SUV|Petrol|626|3.8|AWD|210000|Range Rover|4.4L V8 twin-turbo|Range Rover
+Volvo|XC90 B5|SUV|Hybrid|250|7.7|AWD|60000|Volvo XC90|2.0L I4 mild-hybrid|XC90
+Volvo|XC90 B6|SUV|Hybrid|300|6.7|AWD|65000|Volvo XC90|2.0L I4 mild-hybrid|XC90
+Volvo|XC90 T8 Recharge|SUV|Hybrid|455|5.4|AWD|75000|Volvo XC90|2.0L I4 PHEV|XC90
+Jeep|Wrangler Sport 2.0T|SUV|Petrol|270|7.7|4WD|33000|Jeep Wrangler|2.0L I4 turbo|Wrangler
+Jeep|Wrangler Rubicon|SUV|Petrol|285|7.5|4WD|47000|Jeep Wrangler|3.6L V6|Wrangler
+Jeep|Wrangler Rubicon 392|SUV|Petrol|470|4.5|4WD|80000|Jeep Wrangler|6.4L V8|Wrangler
+Ferrari|Roma|Coupe|Petrol|612|3.4|RWD|245000|Ferrari Roma|3.9L V8 twin-turbo|Roma
+Ferrari|SF90 Stradale|Coupe|Hybrid|986|2.5|AWD|510000|Ferrari SF90 Stradale|4.0L V8 PHEV|SF90`;
+const CARS=RAW.split("\n").map(r=>{const a=r.split("|");const h=[...a[0]].reduce((s,c)=>(s*31+c.charCodeAt(0))%360,7);return{brand:a[0],model:a[1],body:a[2],fuel:a[3],hp:+a[4],acc:+a[5],drive:a[6],price:+a[7],wiki:a[8]||a[0]+" "+a[1],engine:a[9]||"",line:a[10]||a[1],hue:h}});
 const $=id=>document.getElementById(id);
 const uniq=k=>[...new Set(CARS.map(c=>c[k]))].sort();
 uniq("body").forEach(v=>$("fb").add(new Option(v,v)));
+uniq("drive").forEach(v=>$("fd").add(new Option(v,v)));
 uniq("fuel").forEach(v=>$("ff").add(new Option(v,v)));
 $("sB").textContent=uniq("brand").length;$("sN").textContent=CARS.length;
 const fmt=n=>"$"+n.toLocaleString("en-US");
@@ -222,37 +318,50 @@ function status(){const n=$("note");n.style.display="block";
 n.textContent=netErr?"Couldn't load photos from Wikipedia ("+netErr+"). Showing illustrations. Photos load when this page is hosted on your own site.":"Photos found for "+nOK+" of "+new Set(CARS.map(c=>c.wiki)).size+" models"+(imgFail?" ("+imgFail+" failed to display)":"")+"."}
 function attach(el,c){ready.then(()=>{const u=cache[c.wiki];if(!u||el.querySelector("img"))return;const im=new Image();im.alt=c.brand+" "+c.model;im.onload=()=>{el.appendChild(im);setTimeout(()=>im.style.opacity=1,30)};im.onerror=()=>{imgFail++;status()};im.src=u})}
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){io.unobserve(e.target);if(photoOK)attach(e.target,CARS[e.target.dataset.i])}}),{rootMargin:"200px"});
+const key=c=>c.brand+"|"+c.model;let favOnly=false,fav=new Set();
+try{fav=new Set(JSON.parse(localStorage.getItem("ad_fav")||"[]"))}catch(e){}
+function saveFav(){try{localStorage.setItem("ad_fav",JSON.stringify([...fav]))}catch(e){}$("favb").textContent=(favOnly?"♥":"♡")+" Favorites ("+fav.size+")"}
+$("favb").onclick=()=>{favOnly=!favOnly;$("favb").classList.toggle("on",favOnly);saveFav();shown=24;render()};
+const cls=c=>c.acc<3?"Hypercar":c.acc<4?"Supercar":c.acc<5.5?"Performance":c.acc<8?"Sporty everyday":"Comfort & economy";
 const pills=["",...uniq("brand")];
 function drawPills(){$("pills").innerHTML=pills.map(b=>`<button class="pill${b===brand?" on":""}" data-b="${b}">${b||"All brands"}</button>`).join("")}
 $("pills").onclick=e=>{const p=e.target.closest(".pill");if(!p)return;brand=p.dataset.b;drawPills();shown=24;render();if(brand)$("cars").scrollIntoView()};
-function render(){const mp=+$("fp").value;$("pv").textContent=mp>=320000?"Any":"$"+mp.toLocaleString("en-US");
-const q=$("q").value.trim().toLowerCase(),b=$("fb").value,f=$("ff").value,s=$("fs").value;
-list=CARS.filter(c=>(!q||(c.brand+" "+c.model).toLowerCase().includes(q))&&(!brand||c.brand===brand)&&(!b||c.body===b)&&(!f||c.fuel===f)&&c.price<=mp);
+function render(){const m0=+$("fp").value,mp=m0>=320000?1e9:m0;$("pv").textContent=m0>=320000?"Any":"$"+m0.toLocaleString("en-US");
+const q=$("q").value.trim().toLowerCase(),b=$("fb").value,f=$("ff").value,s=$("fs").value,d=$("fd").value;
+list=CARS.filter(c=>(!q||(c.brand+" "+c.line+" "+c.model).toLowerCase().includes(q))&&(!brand||c.brand===brand)&&(!b||c.body===b)&&(!f||c.fuel===f)&&(!d||c.drive===d)&&(!favOnly||fav.has(key(c)))&&c.price<=mp);
 list.sort((x,y)=>s==="hp"?y.hp-x.hp:s==="acc"?x.acc-y.acc:s==="price"?x.price-y.price:(x.brand+x.model).localeCompare(y.brand+y.model));draw()}
 function draw(){
 const v=list.slice(0,shown);$("cnt").textContent=list.length+" "+(list.length===1?"car":"cars")+" found";
-$("grid").innerHTML=v.length?v.map(c=>{const i=CARS.indexOf(c);return `<div class="card" data-i="${i}">${art(c,i,`<span class="tag">${c.fuel}</span><button class="cmp${sel.has(i)?" on":""}">${sel.has(i)?"✓ Added":"+ Compare"}</button>`)}<div class="body"><div class="brand">${c.brand}</div><h3>${c.model}</h3><div class="spec"><div>Power<b>${c.hp} hp</b></div><div>0–100<b>${c.acc} s</b></div><div>Drive<b>${c.drive}</b></div></div><div class="price"><span>From <b>${fmt(c.price)}</b></span><span class="go">Details →</span></div></div></div>`}).join(""):'<div class="empty">No cars match your filters. Try something else.</div>';
+$("grid").innerHTML=v.length?v.map(c=>{const i=CARS.indexOf(c);return `<div class="card" data-i="${i}">${art(c,i,`<span class="tag">${c.fuel}</span><button class="fav${fav.has(key(c))?" on":""}" aria-label="Favorite">${fav.has(key(c))?"♥":"♡"}</button><button class="cmp${sel.has(i)?" on":""}">${sel.has(i)?"✓ Added":"+ Compare"}</button>`)}<div class="body"><div class="brand">${c.brand}${c.line!==c.model?" · "+c.line:""}</div><h3>${c.model}</h3>${c.engine?`<div class="eng">${c.engine}</div>`:""}<div class="spec"><div>Power<b>${c.hp} hp</b></div><div>0–100<b>${c.acc} s</b></div><div>Drive<b>${c.drive}</b></div></div><div class="price"><span>From <b>${fmt(c.price)}</b></span><span class="go">Details →</span></div></div></div>`}).join(""):'<div class="empty">No cars match your filters. Try something else.</div>';
 $("more").parentElement.style.display=list.length>shown?"block":"none";
 document.querySelectorAll("#grid .art").forEach(a=>io.observe(a))}
 $("q").addEventListener("input",()=>{shown=24;render()});
 $("go").onclick=()=>{render();$("cars").scrollIntoView()};
-["fb","ff","fs","fp"].forEach(id=>$(id).addEventListener("input",()=>{shown=24;render()}));
+["fb","ff","fs","fp","fd"].forEach(id=>$(id).addEventListener("input",()=>{shown=24;render()}));
 $("more").onclick=()=>{shown+=24;draw()};
-function tray(){$("tray").style.display=sel.size?"flex":"none";$("tc").textContent=sel.size+" selected (max 3)";$("tb").style.display=sel.size>1?"":"none"}
+function tray(){$("tray").style.display=sel.size?"flex":"none";$("tc").textContent=sel.size+" selected (max 4)";$("tb").style.display=sel.size>1?"":"none"}
 $("tx").onclick=()=>{sel.clear();tray();draw()};
 const maxHp=Math.max(...CARS.map(c=>c.hp));
 $("grid").addEventListener("click",e=>{
 const t=e.target.closest(".card");if(!t)return;const i=+t.dataset.i,c=CARS[i];
-if(e.target.closest(".cmp")){if(sel.has(i))sel.delete(i);else if(sel.size<3)sel.add(i);else{alert("You can compare up to 3 cars.");return}tray();draw();return}
+if(e.target.closest(".fav")){const k=key(c);fav.has(k)?fav.delete(k):fav.add(k);saveFav();render();return}
+if(e.target.closest(".cmp")){if(sel.has(i))sel.delete(i);else if(sel.size<4)sel.add(i);else{alert("You can compare up to 4 cars.");return}tray();draw();return}
+openCar(i)});
+function openCar(i){const c=CARS[i],sib=CARS.map((x,j)=>[x,j]).filter(([x,j])=>x.brand===c.brand&&x.line===c.line&&j!==i),f=fav.has(key(c));
 $("dlg").className="";
-$("dlg").innerHTML=`<div class="dh">${art(c,i)}<button class="x" aria-label="Close" onclick="dlg.close()">×</button></div><div class="db"><div class="brand">${c.brand}</div><h2>${c.model}</h2><table><tr><td>Body type</td><td>${c.body}</td></tr><tr><td>Fuel</td><td>${c.fuel}</td></tr><tr><td>Power</td><td>${c.hp} hp</td></tr><tr><td>0–100 km/h</td><td>${c.acc} s</td></tr><tr><td>Drivetrain</td><td>${c.drive}</td></tr><tr><td>Approx. price</td><td>from ${fmt(c.price)}</td></tr></table><div class="bar"><label><span>Power vs. catalog max</span><span>${c.hp} / ${maxHp} hp</span></label><div><i style="width:${Math.round(c.hp/maxHp*100)}%"></i></div></div><a class="lnk" target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/${encodeURIComponent(c.wiki.replace(/ /g,"_"))}">Read more on Wikipedia →</a></div>`;
-$("dlg").showModal();if(photoOK)attach($("dlg").querySelector(".art"),c)});
+$("dlg").innerHTML=`<div class="dh">${art(c,i)}<button class="x" aria-label="Close" onclick="dlg.close()">×</button></div><div class="db"><div class="brand">${c.brand}${c.line!==c.model?" · "+c.line:""}</div><h2>${c.model}</h2><table>${c.engine?`<tr><td>Engine</td><td>${c.engine}</td></tr>`:""}<tr><td>Body type</td><td>${c.body}</td></tr><tr><td>Fuel</td><td>${c.fuel}</td></tr><tr><td>Power</td><td>${c.hp} hp (${Math.round(c.hp*.7457)} kW)</td></tr><tr><td>0–100 km/h</td><td>${c.acc} s</td></tr><tr><td>Drivetrain</td><td>${c.drive}</td></tr><tr><td>Class (by acceleration)</td><td>${cls(c)}</td></tr><tr><td>Approx. price</td><td>from ${fmt(c.price)}</td></tr></table><div class="bar"><label><span>Power vs. catalog max</span><span>${c.hp} / ${maxHp} hp</span></label><div><i style="width:${Math.round(c.hp/maxHp*100)}%"></i></div></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:18px"><button class="btn p" data-f="${i}">${f?"♥ Saved":"♡ Save to favorites"}</button><button class="btn" data-c="${i}" style="border:1px solid var(--line)">+ Add to compare</button><a class="lnk" style="margin:0" target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/${encodeURIComponent(c.wiki.replace(/ /g,"_"))}">Wikipedia →</a></div>${sib.length?`<div class="sib"><h4>Other versions of the ${c.line}</h4><div class="pills">${sib.map(([x,j])=>`<button class="pill" data-j="${j}">${x.model} · ${x.hp} hp</button>`).join("")}</div></div>`:""}</div>`;
+if(!$("dlg").open)$("dlg").showModal();attach($("dlg").querySelector(".art"),c)}
+$("dlg").addEventListener("click",e=>{const g=a=>e.target.closest("["+a+"]");let b;
+if(b=g("data-j"))openCar(+b.dataset.j);
+else if(b=g("data-f")){const c=CARS[+b.dataset.f],k=key(c);fav.has(k)?fav.delete(k):fav.add(k);saveFav();render();openCar(+b.dataset.f)}
+else if(b=g("data-c")){const i=+b.dataset.c;if(sel.size<4)sel.add(i);tray();draw();b.textContent="✓ Added"}});
+$("th").onclick=()=>{const d=document.documentElement,dk=(d.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"))==="dark";d.dataset.theme=dk?"light":"dark"};
 function cmp(){
 if(sel.size<2){alert("Add at least 2 cars with the + Compare button first.");return}
 const cs=[...sel].map(i=>[i,CARS[i]]),m=(k,f)=>f(...cs.map(x=>x[1][k]));
 const row=(n,k,fmtv,best)=>`<tr><td>${n}</td>${cs.map(([i,c])=>`<td class="${best&&c[k]===best?"best":""}">${fmtv(c[k])}</td>`).join("")}</tr>`;
 $("dlg").className="w";
-$("dlg").innerHTML=`<div class="db"><button class="x" aria-label="Close" onclick="dlg.close()">×</button><h2>Compare cars</h2><table class="ct"><tr><th></th>${cs.map(([i,c])=>`<th>${art(c,i)}<div class="brand" style="margin-top:8px">${c.brand}</div>${c.model}</th>`).join("")}</tr>${row("Body","body",v=>v)}${row("Fuel","fuel",v=>v)}${row("Power","hp",v=>v+" hp",m("hp",Math.max))}${row("0–100 km/h","acc",v=>v+" s",m("acc",Math.min))}${row("Drivetrain","drive",v=>v)}${row("Approx. price","price",v=>fmt(v),m("price",Math.min))}</table><p style="color:var(--muted);font-size:13px">Best value in each row is highlighted.</p></div>`;
+$("dlg").innerHTML=`<div class="db"><button class="x" aria-label="Close" onclick="dlg.close()">×</button><h2>Compare cars</h2><table class="ct"><tr><th></th>${cs.map(([i,c])=>`<th>${art(c,i)}<div class="brand" style="margin-top:8px">${c.brand}</div>${c.model}</th>`).join("")}</tr>${row("Engine","engine",v=>v||"—")}${row("Body","body",v=>v)}${row("Fuel","fuel",v=>v)}${row("Power","hp",v=>v+" hp",m("hp",Math.max))}${row("0–100 km/h","acc",v=>v+" s",m("acc",Math.min))}${row("Drivetrain","drive",v=>v)}${row("Approx. price","price",v=>fmt(v),m("price",Math.min))}</table><p style="color:var(--muted);font-size:13px">Best value in each row is highlighted.</p></div>`;
 $("dlg").showModal();if(photoOK)$("dlg").querySelectorAll(".art").forEach(a=>attach(a,CARS[a.dataset.i]))}
 $("tb").onclick=cmp;$("nc").onclick=e=>{e.preventDefault();cmp()};
 $("dlg").addEventListener("click",e=>{if(e.target===$("dlg"))$("dlg").close()});
