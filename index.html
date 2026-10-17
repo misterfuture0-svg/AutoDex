@@ -3,81 +3,97 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>AutoDex — Car Specs &amp; Information</title>
+<title>AutoDex — Find, Compare &amp; Explore Cars</title>
 <style>
-:root{--bg:#f5f6f8;--surface:#fff;--text:#0f172a;--muted:#5b6475;--line:#e3e6ec;--accent:#1d4ed8;--chip:#eef2ff;--shadow:0 1px 3px rgba(15,23,42,.08),0 8px 24px rgba(15,23,42,.06);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1020;--surface:#141a2e;--text:#e8ecf5;--muted:#9aa4ba;--line:#242c46;--accent:#6b93ff;--chip:#1c2542;--shadow:0 1px 3px rgba(0,0,0,.4)}}
-:root[data-theme="dark"]{--bg:#0b1020;--surface:#141a2e;--text:#e8ecf5;--muted:#9aa4ba;--line:#242c46;--accent:#6b93ff;--chip:#1c2542;--shadow:0 1px 3px rgba(0,0,0,.4)}
-html{color-scheme:light dark;scroll-padding-top:env(safe-area-inset-top,0px)}
+:root{--bg:#f4f6fa;--surface:#fff;--text:#0b1224;--muted:#5a6478;--line:#e2e6ee;--accent:#2563eb;--on:#fff;--chip:#eaf0ff;--shadow:0 1px 2px rgba(11,18,36,.06),0 10px 30px rgba(11,18,36,.07);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#080d1a;--surface:#111933;--text:#e9eefb;--muted:#98a3bd;--line:#222c4d;--accent:#6e96ff;--on:#08102a;--chip:#1a2547;--shadow:0 1px 2px rgba(0,0,0,.5)}}
+:root[data-theme="dark"]{--bg:#080d1a;--surface:#111933;--text:#e9eefb;--muted:#98a3bd;--line:#222c4d;--accent:#6e96ff;--on:#08102a;--chip:#1a2547;--shadow:0 1px 2px rgba(0,0,0,.5)}
+html{color-scheme:light dark;scroll-behavior:smooth;scroll-padding-top:80px}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
-header{background:var(--surface);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:10}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--surface);border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
-.logo{font-weight:800;font-size:20px;letter-spacing:-.02em}.logo span{color:var(--accent)}
-.nav small{color:var(--muted)}
-.hero{padding:48px 0 28px}
-.hero h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:0 0 12px;letter-spacing:-.03em;max-width:640px}
-.hero p{color:var(--muted);max-width:560px;margin:0 0 20px;font-size:18px}
-.stats{display:flex;gap:28px;flex-wrap:wrap}
-.stats b{display:block;font-size:24px}.stats span{color:var(--muted);font-size:14px}
-.tools{display:grid;grid-template-columns:2fr repeat(4,1fr);gap:10px;margin-bottom:16px}
-input,select,.more{font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 14px;min-width:0}
-input:focus,select:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
-@media(max-width:820px){.tools{grid-template-columns:1fr 1fr}.tools input{grid-column:1/-1}}
-.note{background:var(--chip);color:var(--text);border-radius:10px;padding:10px 14px;font-size:14px;margin-bottom:14px;display:none}
-.count{color:var(--muted);font-size:14px;margin-bottom:14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;cursor:pointer;text-align:left;padding:0;font:inherit;color:inherit;box-shadow:var(--shadow);transition:transform .15s}
-.card:hover{transform:translateY(-3px)}
-.art{height:160px;display:grid;place-items:center;position:relative;overflow:hidden}
-.art svg{width:72%;height:auto}
-.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.body{padding:16px}
-.brand{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.08em}
-.body h3{margin:2px 0 10px;font-size:19px}
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-.chip{background:var(--chip);color:var(--accent);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600}
-.row{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:10px;font-size:14px;color:var(--muted)}
-.row b{color:var(--text)}
+.logo{font-weight:800;font-size:21px;letter-spacing:-.03em}.logo span{color:var(--accent)}
+nav{display:flex;gap:6px}nav a,.btn{color:var(--text);text-decoration:none;font-weight:600;font-size:15px;padding:8px 14px;border-radius:10px;border:0;background:none;cursor:pointer;font-family:inherit}
+nav a:hover{background:var(--chip)}
+.btn.p{background:var(--accent);color:var(--on)}
+.hero{background:linear-gradient(135deg,#0a1230 0%,#1b3a8f 60%,#2563eb 100%);color:#fff}
+.hg{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding:56px 20px 64px}
+.hero h1{font-size:clamp(32px,5vw,56px);line-height:1.05;letter-spacing:-.035em;margin:0 0 14px}
+.hero p{font-size:18px;opacity:.85;max-width:500px;margin:0 0 24px}
+.sb{display:flex;background:#fff;border-radius:14px;padding:6px;max-width:520px;box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.sb input{flex:1;border:0;background:none;color:#0b1224;font:inherit;padding:12px 14px;min-width:0;outline:0}
+.sb button{background:#2563eb;color:#fff;border:0;border-radius:10px;padding:0 22px;font:inherit;font-weight:700;cursor:pointer}
+.stats{display:flex;gap:32px;margin-top:28px}.stats b{display:block;font-size:26px}.stats span{opacity:.75;font-size:14px}
+.feat{border-radius:22px;overflow:hidden;aspect-ratio:16/10;background:rgba(255,255,255,.1);position:relative;display:grid;place-items:center;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.feat svg{width:70%}.feat img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.feat em{position:absolute;left:14px;bottom:12px;z-index:2;background:rgba(0,0,0,.55);padding:4px 12px;border-radius:99px;font-size:13px;font-style:normal}
+@media(max-width:820px){.hg{grid-template-columns:1fr;padding:36px 20px 44px}.feat{display:none}nav a:not(.keep){display:none}}
+section{padding-top:36px}
+h2.t{font-size:26px;letter-spacing:-.02em;margin:0 0 16px}
+.pills{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}
+.pill{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:99px;padding:8px 16px;font:600 14px inherit;font-family:inherit;cursor:pointer}
+.pill.on{background:var(--accent);color:var(--on);border-color:var(--accent)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 6px}
+select{font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+select:focus,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.count{color:var(--muted);font-size:14px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;cursor:pointer;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s;position:relative}
+.card:hover{transform:translateY(-4px)}
+.art{height:170px;display:grid;place-items:center;position:relative;overflow:hidden}
+.art svg{width:70%}.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tag{position:absolute;top:12px;left:12px;z-index:2;background:rgba(10,18,48,.75);color:#fff;border-radius:99px;font-size:12px;font-weight:600;padding:3px 10px}
+.cmp{position:absolute;top:10px;right:10px;z-index:2;border:0;border-radius:99px;padding:5px 12px;font:600 12px inherit;font-family:inherit;background:var(--surface);color:var(--text);cursor:pointer}
+.cmp.on{background:var(--accent);color:var(--on)}
+.body{padding:16px 18px 18px}
+.brand{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.1em}
+.body h3{margin:2px 0 12px;font-size:20px;letter-spacing:-.01em}
+.spec{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;border-top:1px solid var(--line);padding-top:12px}
+.spec div{font-size:12px;color:var(--muted)}.spec b{display:block;font-size:15px;color:var(--text)}
+.price{margin-top:12px;font-size:14px;color:var(--muted)}.price b{font-size:18px;color:var(--accent)}
 .empty{text-align:center;color:var(--muted);padding:48px 0;grid-column:1/-1}
-.moreW{text-align:center;padding:28px 0 56px}
-.more{cursor:pointer;font-weight:600;padding:12px 28px}
-dialog{border:0;border-radius:18px;padding:0;max-width:640px;width:calc(100% - 24px);background:var(--surface);color:var(--text);box-shadow:0 20px 60px rgba(0,0,0,.35)}
-dialog::backdrop{background:rgba(5,10,25,.6)}
-.dh{position:relative}.dh .art{height:260px}
-.x{position:absolute;top:12px;right:12px;z-index:2;width:36px;height:36px;border-radius:50%;border:0;background:var(--surface);color:var(--text);font-size:20px;cursor:pointer}
-.db{padding:22px 24px 26px}
-.db h2{margin:0 0 14px;font-size:26px}
+.mw{text-align:center;padding:28px 0 60px}
+.note{background:var(--chip);border-radius:10px;padding:10px 14px;font-size:14px;margin-top:14px;display:none}
+dialog{border:0;border-radius:20px;padding:0;max-width:680px;width:calc(100% - 24px);background:var(--surface);color:var(--text);box-shadow:0 24px 70px rgba(0,0,0,.4)}
+dialog.w{max-width:960px}
+dialog::backdrop{background:rgba(4,8,22,.65)}
+.dh{position:relative}.dh .art{height:280px}
+.x{position:absolute;top:12px;right:12px;z-index:3;width:38px;height:38px;border-radius:50%;border:0;background:var(--surface);color:var(--text);font-size:22px;cursor:pointer}
+.db{padding:22px 26px 28px}.db h2{margin:0 0 14px;font-size:28px;letter-spacing:-.02em}
 table{width:100%;border-collapse:collapse;font-size:15px}
-td{padding:10px 0;border-bottom:1px solid var(--line)}td:last-child{text-align:right;font-weight:600}
-.bar{margin-top:16px}.bar div{height:8px;border-radius:99px;background:var(--chip);overflow:hidden;margin-top:6px}
-.bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
-.bar label{font-size:13px;color:var(--muted);display:flex;justify-content:space-between}
-footer{border-top:1px solid var(--line);background:var(--surface);padding:22px 0;color:var(--muted);font-size:13px}
+td,th{padding:11px 8px;border-bottom:1px solid var(--line);text-align:left}
+td:last-child{font-weight:600}
+.ct td,.ct th{text-align:center}.ct td:first-child,.ct th:first-child{text-align:left;color:var(--muted);font-weight:500}
+.ct .art{height:90px;border-radius:12px}.best{color:var(--accent);font-weight:800}
+.bar{margin-top:18px}.bar label{font-size:13px;color:var(--muted);display:flex;justify-content:space-between}
+.bar div{height:8px;border-radius:99px;background:var(--chip);margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.lnk{display:inline-block;margin-top:18px;color:var(--accent);font-weight:600;text-decoration:none}
+#tray{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:8;background:var(--text);color:var(--bg);border-radius:99px;padding:8px 10px 8px 20px;display:none;align-items:center;gap:12px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#tray .btn{padding:8px 16px}#tray .c{color:var(--bg);opacity:.7;font-size:14px}
+footer{border-top:1px solid var(--line);background:var(--surface);padding:26px 0 90px;color:var(--muted);font-size:13px}
 </style>
 </head>
 <body>
-<header><div class="wrap nav"><div class="logo">Auto<span>Dex</span></div><small>Car specs &amp; information</small></div></header>
+<header><div class="wrap nav"><div class="logo">Auto<span>Dex</span></div><nav><a href="#cars" class="keep">Cars</a><a href="#brands">Brands</a><a href="#" id="nc" class="keep">Compare</a></nav></div></header>
+<div class="hero"><div class="wrap hg">
+<div><h1>Find, compare and explore any car.</h1><p>Real photos, key specs and prices for the world's most popular models, in one place.</p>
+<div class="sb"><input id="q" type="search" placeholder="Search brand or model…" aria-label="Search cars"><button id="go">Search</button></div>
+<div class="stats"><div><b id="sN">0</b><span>Models</span></div><div><b id="sB">0</b><span>Brands</span></div><div><b>4</b><span>Fuel types</span></div></div></div>
+<div class="feat" id="feat"><em>Featured: Porsche 911</em></div>
+</div></div>
 <main class="wrap">
-<section class="hero">
-<h1>Every car, every spec, in one place.</h1>
-<p>Browse popular models from around the world, compare performance, and find the right car for you.</p>
-<div class="stats"><div><b id="sN">0</b><span>Models</span></div><div><b id="sB">0</b><span>Brands</span></div><div><b>4</b><span>Fuel types</span></div></div>
-</section>
-<div class="tools">
-<input id="q" type="search" placeholder="Search by brand or model…" aria-label="Search cars">
-<select id="fm" aria-label="Brand"><option value="">All brands</option></select>
-<select id="fb" aria-label="Body type"><option value="">All body types</option></select>
-<select id="ff" aria-label="Fuel"><option value="">All fuel types</option></select>
-<select id="fs" aria-label="Sort"><option value="name">Sort: Name</option><option value="hp">Power: high to low</option><option value="acc">0–100: fastest</option><option value="price">Price: low to high</option></select>
-</div>
+<section id="brands"><h2 class="t">Browse by brand</h2><div class="pills" id="pills"></div></section>
+<section id="cars"><h2 class="t">All cars</h2>
+<div class="tools"><select id="fb" aria-label="Body type"><option value="">All body types</option></select><select id="ff" aria-label="Fuel"><option value="">All fuel types</option></select><select id="fs" aria-label="Sort"><option value="name">Sort: Name</option><option value="hp">Power: high to low</option><option value="acc">0–100: fastest</option><option value="price">Price: low to high</option></select></div>
 <div class="note" id="note">Live photos load when this page is hosted on your own site. Here you see illustrations instead.</div>
-<div class="count" id="cnt"></div>
-<div class="grid" id="grid"></div>
-<div class="moreW"><button class="more" id="more">Show more cars</button></div>
+<div class="count" id="cnt"></div><div class="grid" id="grid"></div>
+<div class="mw"><button class="btn p" id="more">Show more cars</button></div></section>
 </main>
 <footer><div class="wrap">Specs and prices are approximate and vary by market, year and trim. Photos come from Wikipedia and Wikimedia Commons under their respective licenses.</div></footer>
+<div id="tray"><span id="tc"></span><button class="btn p" id="tb">Compare</button><button class="btn c" id="tx">Clear</button></div>
 <dialog id="dlg"></dialog>
 <script>
 const RAW=`Toyota|Camry|Sedan|Hybrid|225|7.2|FWD|29000
@@ -152,47 +168,58 @@ Subaru|Outback|Wagon|Petrol|182|8.9|AWD|31000
 Volvo|XC90|SUV|Hybrid|455|5.4|AWD|75000
 Jeep|Wrangler|SUV|Petrol|285|7.0|4WD|40000
 BYD|Seal|Sedan|Electric|530|3.8|AWD|48000`;
-const CARS=RAW.split("\n").map(r=>{const a=r.split("|");const b=[...a[0]].reduce((h,c)=>(h*31+c.charCodeAt(0))%360,7);return{brand:a[0],model:a[1],body:a[2],fuel:a[3],hp:+a[4],acc:+a[5],drive:a[6],price:+a[7],wiki:a[8]||a[0]+" "+a[1],hue:b}});
+const CARS=RAW.split("\n").map(r=>{const a=r.split("|");const h=[...a[0]].reduce((s,c)=>(s*31+c.charCodeAt(0))%360,7);return{brand:a[0],model:a[1],body:a[2],fuel:a[3],hp:+a[4],acc:+a[5],drive:a[6],price:+a[7],wiki:a[8]||a[0]+" "+a[1],hue:h}});
 const $=id=>document.getElementById(id);
 const uniq=k=>[...new Set(CARS.map(c=>c[k]))].sort();
-uniq("brand").forEach(v=>$("fm").add(new Option(v,v)));
 uniq("body").forEach(v=>$("fb").add(new Option(v,v)));
 uniq("fuel").forEach(v=>$("ff").add(new Option(v,v)));
 $("sB").textContent=uniq("brand").length;$("sN").textContent=CARS.length;
 const fmt=n=>"$"+n.toLocaleString("en-US");
-const col=c=>`hsl(${c.hue},65%,45%)`;
-const svg=c=>`<svg viewBox="0 0 240 90" aria-hidden="true"><path d="M12 62c0-8 4-12 12-14l28-6 24-20c4-3 8-4 14-4h58c8 0 13 2 18 8l16 16 26 4c6 1 10 6 10 14v6c0 3-2 5-5 5h-12a20 20 0 0 0-40 0H88a20 20 0 0 0-40 0H17c-3 0-5-2-5-5z" fill="${col(c)}"/><path d="M82 24h52l14 18H66z" fill="#fff" opacity=".35"/><circle cx="68" cy="68" r="14" fill="#111827"/><circle cx="68" cy="68" r="6" fill="#d1d5db"/><circle cx="178" cy="68" r="14" fill="#111827"/><circle cx="178" cy="68" r="6" fill="#d1d5db"/></svg>`;
-const art=(c,i)=>`<div class="art" data-i="${i}" style="background:linear-gradient(135deg,hsla(${c.hue},65%,45%,.15),hsla(${c.hue},65%,45%,.04))">${svg(c)}</div>`;
-let list=[],shown=24,photoOK=true;const cache={};
-async function photo(c){
-if(c.wiki in cache)return cache[c.wiki];
-try{const r=await fetch("https://en.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(c.wiki.replace(/ /g,"_")));
-if(!r.ok)throw 0;const d=await r.json();return cache[c.wiki]=(d.thumbnail&&d.thumbnail.source)||null}
+const svg=c=>`<svg viewBox="0 0 240 90" aria-hidden="true"><path d="M12 62c0-8 4-12 12-14l28-6 24-20c4-3 8-4 14-4h58c8 0 13 2 18 8l16 16 26 4c6 1 10 6 10 14v6c0 3-2 5-5 5h-12a20 20 0 0 0-40 0H88a20 20 0 0 0-40 0H17c-3 0-5-2-5-5z" fill="hsl(${c.hue},65%,50%)"/><path d="M82 24h52l14 18H66z" fill="#fff" opacity=".35"/><circle cx="68" cy="68" r="14" fill="#111827"/><circle cx="68" cy="68" r="6" fill="#d1d5db"/><circle cx="178" cy="68" r="14" fill="#111827"/><circle cx="178" cy="68" r="6" fill="#d1d5db"/></svg>`;
+const bg=c=>`background:linear-gradient(135deg,hsla(${c.hue},65%,50%,.18),hsla(${c.hue},65%,50%,.04))`;
+const art=(c,i,x="")=>`<div class="art" data-i="${i}" style="${bg(c)}">${x}${svg(c)}</div>`;
+let list=[],shown=24,photoOK=true,brand="";const cache={},sel=new Set();
+async function photo(c){if(c.wiki in cache)return cache[c.wiki];
+try{const r=await fetch("https://en.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(c.wiki.replace(/ /g,"_")));if(!r.ok)throw 0;const d=await r.json();return cache[c.wiki]=(d.thumbnail&&d.thumbnail.source)||null}
 catch(e){photoOK=false;$("note").style.display="block";return cache[c.wiki]=null}}
 function attach(el,c){photo(c).then(u=>{if(!u||el.querySelector("img"))return;const im=new Image();im.alt=c.brand+" "+c.model;im.onload=()=>el.appendChild(im);im.src=u})}
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){io.unobserve(e.target);if(photoOK)attach(e.target,CARS[e.target.dataset.i])}}),{rootMargin:"200px"});
+const pills=["",...uniq("brand")];
+function drawPills(){$("pills").innerHTML=pills.map(b=>`<button class="pill${b===brand?" on":""}" data-b="${b}">${b||"All brands"}</button>`).join("")}
+$("pills").onclick=e=>{const p=e.target.closest(".pill");if(!p)return;brand=p.dataset.b;drawPills();shown=24;render();if(brand)$("cars").scrollIntoView()};
 function render(){
-const q=$("q").value.trim().toLowerCase(),m=$("fm").value,b=$("fb").value,f=$("ff").value,s=$("fs").value;
-list=CARS.filter(c=>(!q||(c.brand+" "+c.model).toLowerCase().includes(q))&&(!m||c.brand===m)&&(!b||c.body===b)&&(!f||c.fuel===f));
-list.sort((x,y)=>s==="hp"?y.hp-x.hp:s==="acc"?x.acc-y.acc:s==="price"?x.price-y.price:(x.brand+x.model).localeCompare(y.brand+y.model));
-draw()}
+const q=$("q").value.trim().toLowerCase(),b=$("fb").value,f=$("ff").value,s=$("fs").value;
+list=CARS.filter(c=>(!q||(c.brand+" "+c.model).toLowerCase().includes(q))&&(!brand||c.brand===brand)&&(!b||c.body===b)&&(!f||c.fuel===f));
+list.sort((x,y)=>s==="hp"?y.hp-x.hp:s==="acc"?x.acc-y.acc:s==="price"?x.price-y.price:(x.brand+x.model).localeCompare(y.brand+y.model));draw()}
 function draw(){
-const v=list.slice(0,shown);
-$("cnt").textContent=list.length+" "+(list.length===1?"car":"cars")+" found";
-$("grid").innerHTML=v.length?v.map(c=>`<button class="card" data-i="${CARS.indexOf(c)}">${art(c,CARS.indexOf(c))}<div class="body"><div class="brand">${c.brand}</div><h3>${c.model}</h3><div class="chips"><span class="chip">${c.body}</span><span class="chip">${c.fuel}</span></div><div class="row"><span>Power <b>${c.hp} hp</b></span><span>From <b>${fmt(c.price)}</b></span></div></div></button>`).join(""):'<div class="empty">No cars match your filters. Try something else.</div>';
+const v=list.slice(0,shown);$("cnt").textContent=list.length+" "+(list.length===1?"car":"cars")+" found";
+$("grid").innerHTML=v.length?v.map(c=>{const i=CARS.indexOf(c);return `<div class="card" data-i="${i}">${art(c,i,`<span class="tag">${c.fuel}</span><button class="cmp${sel.has(i)?" on":""}">${sel.has(i)?"✓ Added":"+ Compare"}</button>`)}<div class="body"><div class="brand">${c.brand}</div><h3>${c.model}</h3><div class="spec"><div>Power<b>${c.hp} hp</b></div><div>0–100<b>${c.acc} s</b></div><div>Drive<b>${c.drive}</b></div></div><div class="price">From <b>${fmt(c.price)}</b></div></div></div>`}).join(""):'<div class="empty">No cars match your filters. Try something else.</div>';
 $("more").parentElement.style.display=list.length>shown?"block":"none";
 document.querySelectorAll("#grid .art").forEach(a=>io.observe(a))}
-["q","fm","fb","ff","fs"].forEach(id=>$(id).addEventListener("input",()=>{shown=24;render()}));
+$("q").addEventListener("input",()=>{shown=24;render()});
+$("go").onclick=()=>{render();$("cars").scrollIntoView()};
+["fb","ff","fs"].forEach(id=>$(id).addEventListener("input",()=>{shown=24;render()}));
 $("more").onclick=()=>{shown+=24;draw()};
+function tray(){$("tray").style.display=sel.size?"flex":"none";$("tc").textContent=sel.size+" selected (max 3)";$("tb").style.display=sel.size>1?"":"none"}
+$("tx").onclick=()=>{sel.clear();tray();draw()};
 const maxHp=Math.max(...CARS.map(c=>c.hp));
 $("grid").addEventListener("click",e=>{
-const t=e.target.closest(".card");if(!t)return;
-const i=t.dataset.i,c=CARS[i];
-$("dlg").innerHTML=`<div class="dh">${art(c,i)}<button class="x" aria-label="Close" onclick="dlg.close()">×</button></div><div class="db"><div class="brand">${c.brand}</div><h2>${c.model}</h2><table><tr><td>Body type</td><td>${c.body}</td></tr><tr><td>Fuel</td><td>${c.fuel}</td></tr><tr><td>Power</td><td>${c.hp} hp</td></tr><tr><td>0–100 km/h</td><td>${c.acc} s</td></tr><tr><td>Drivetrain</td><td>${c.drive}</td></tr><tr><td>Approx. price</td><td>from ${fmt(c.price)}</td></tr></table><div class="bar"><label><span>Power vs. catalog max</span><span>${c.hp} / ${maxHp} hp</span></label><div><i style="width:${Math.round(c.hp/maxHp*100)}%"></i></div></div></div>`;
-$("dlg").showModal();
-const a=$("dlg").querySelector(".art");if(photoOK)attach(a,c)});
+const t=e.target.closest(".card");if(!t)return;const i=+t.dataset.i,c=CARS[i];
+if(e.target.closest(".cmp")){if(sel.has(i))sel.delete(i);else if(sel.size<3)sel.add(i);else{alert("You can compare up to 3 cars.");return}tray();draw();return}
+$("dlg").className="";
+$("dlg").innerHTML=`<div class="dh">${art(c,i)}<button class="x" aria-label="Close" onclick="dlg.close()">×</button></div><div class="db"><div class="brand">${c.brand}</div><h2>${c.model}</h2><table><tr><td>Body type</td><td>${c.body}</td></tr><tr><td>Fuel</td><td>${c.fuel}</td></tr><tr><td>Power</td><td>${c.hp} hp</td></tr><tr><td>0–100 km/h</td><td>${c.acc} s</td></tr><tr><td>Drivetrain</td><td>${c.drive}</td></tr><tr><td>Approx. price</td><td>from ${fmt(c.price)}</td></tr></table><div class="bar"><label><span>Power vs. catalog max</span><span>${c.hp} / ${maxHp} hp</span></label><div><i style="width:${Math.round(c.hp/maxHp*100)}%"></i></div></div><a class="lnk" target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/${encodeURIComponent(c.wiki.replace(/ /g,"_"))}">Read more on Wikipedia →</a></div>`;
+$("dlg").showModal();if(photoOK)attach($("dlg").querySelector(".art"),c)});
+function cmp(){
+if(sel.size<2){alert("Add at least 2 cars with the + Compare button first.");return}
+const cs=[...sel].map(i=>[i,CARS[i]]),m=(k,f)=>f(...cs.map(x=>x[1][k]));
+const row=(n,k,fmtv,best)=>`<tr><td>${n}</td>${cs.map(([i,c])=>`<td class="${best&&c[k]===best?"best":""}">${fmtv(c[k])}</td>`).join("")}</tr>`;
+$("dlg").className="w";
+$("dlg").innerHTML=`<div class="db"><button class="x" aria-label="Close" onclick="dlg.close()">×</button><h2>Compare cars</h2><table class="ct"><tr><th></th>${cs.map(([i,c])=>`<th>${art(c,i)}<div class="brand" style="margin-top:8px">${c.brand}</div>${c.model}</th>`).join("")}</tr>${row("Body","body",v=>v)}${row("Fuel","fuel",v=>v)}${row("Power","hp",v=>v+" hp",m("hp",Math.max))}${row("0–100 km/h","acc",v=>v+" s",m("acc",Math.min))}${row("Drivetrain","drive",v=>v)}${row("Approx. price","price",v=>fmt(v),m("price",Math.min))}</table><p style="color:var(--muted);font-size:13px">Best value in each row is highlighted.</p></div>`;
+$("dlg").showModal();if(photoOK)$("dlg").querySelectorAll(".art").forEach(a=>attach(a,CARS[a.dataset.i]))}
+$("tb").onclick=cmp;$("nc").onclick=e=>{e.preventDefault();cmp()};
 $("dlg").addEventListener("click",e=>{if(e.target===$("dlg"))$("dlg").close()});
-render();
+drawPills();render();tray();
+const fi=CARS.findIndex(c=>c.model==="911 Carrera");$("feat").insertAdjacentHTML("afterbegin",svg(CARS[fi]));if(true)attach($("feat"),CARS[fi]);
 </script>
 </body>
 </html>
