@@ -157,7 +157,7 @@ footer{background:#050a1c;color:#9aa6c4;border:0;padding:40px 0 100px}
 <div class="pills act" id="act"></div><div class="count" id="cnt"></div><div class="grid" id="grid"></div>
 <div class="mw"><button class="btn p" id="more" data-t="more">Show more cars</button></div></section>
 </main>
-<footer><div class="wrap"><div class="fg"><div><div class="logo">Auto<span>Dex</span></div><div>Find, compare and explore cars from around the world.</div></div><div><h4>Explore</h4><a href="#cars">All cars</a><a href="#brands">Brands</a><a href="#" onclick="cmp();return false">Compare</a></div><div><h4>Sources</h4><a href="https://en.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a><a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="fl">Specs and prices are approximate and vary by market, year and trim. Currency rates are fixed approximations, not live. Photos come from Wikipedia and Wikimedia Commons under their respective licenses. AutoDex v7.0</div></div></footer>
+<footer><div class="wrap"><div class="fg"><div><div class="logo">Auto<span>Dex</span></div><div>Find, compare and explore cars from around the world.</div></div><div><h4>Explore</h4><a href="#cars">All cars</a><a href="#brands">Brands</a><a href="#" onclick="cmp();return false">Compare</a></div><div><h4>Sources</h4><a href="https://en.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a><a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="fl">Specs and prices are approximate and vary by market, year and trim. Currency rates are fixed approximations, not live. Photos come from Wikipedia and Wikimedia Commons under their respective licenses. AutoDex v7.1</div></div></footer>
 <button id="up" aria-label="Back to top">↑</button>
 <div id="tray"><span id="tc"></span><button class="btn p" id="tb">Compare</button><button class="btn c" id="tx">Clear</button></div>
 <dialog id="dlg"></dialog>
@@ -374,7 +374,16 @@ catch(e){netErr=String(e&&e.message||e)}}
 status()})();
 function status(){const n=$("note");n.style.display="block";
 n.textContent=netErr?"Couldn't load photos from Wikipedia ("+netErr+"). Showing illustrations. Photos load when this page is hosted on your own site.":"Photos found for "+nOK+" of "+new Set(CARS.map(c=>c.wiki)).size+" models"+(imgFail?" ("+imgFail+" failed to display)":"")+"."}
-function attach(el,c){ready.then(()=>{const u=cache[c.wiki];if(!u||el.querySelector("img"))return;const im=new Image();im.alt=c.brand+" "+c.model;im.onload=()=>{el.appendChild(im);el.classList.add("ld");setTimeout(()=>im.style.opacity=1,30)};im.onerror=()=>{imgFail++;status()};im.src=u})}
+const used=new Set(),spc={};let qn=0;const qq=[];
+function qrun(){while(qn<4&&qq.length){qn++;qq.shift()()}}
+const qadd=f=>new Promise(r=>{qq.push(()=>f().then(r,()=>r(null)).then(()=>{qn--;qrun()}));qrun()});
+function specific(c){const k=c.brand+"|"+c.model;if(!(k in spc))spc[k]=qadd(async()=>{
+const bt=c.brand.toLowerCase().split(/[ -]/)[0],lt=c.line.toLowerCase().split(" ")[0],dt=(c.model.toLowerCase().match(/[a-z]*\d+[a-z0-9]*/g)||[]).filter(x=>x.length>1);
+const r=await fetch("https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=15&gsrsearch="+encodeURIComponent(c.brand+" "+c.model+" filetype:bitmap -interior -engine -logo -wheel")+"&prop=imageinfo&iiprop=url%7Cmime&iiurlwidth=640");
+const d=await r.json(),l=Object.values((d.query||{}).pages||{}).sort((a,b)=>a.index-b.index).map(p=>({n:(p.title||"").toLowerCase(),x:p.imageinfo&&p.imageinfo[0]})).filter(o=>o.x&&/jpe?g/i.test(o.x.mime)&&o.x.thumburl&&(o.n.includes(bt)||o.n.includes(lt))&&!used.has(o.x.thumburl));
+const pick=l.find(o=>dt.some(z=>o.n.includes(z)))||l[0];if(!pick)return null;used.add(pick.x.thumburl);return pick.x.thumburl});return spc[k]}
+function put(el,c,u){const im=new Image();im.alt=c.brand+" "+c.model;im.onload=()=>{el.appendChild(im);el.classList.add("ld");setTimeout(()=>im.style.opacity=1,30)};im.onerror=()=>{imgFail++;status()};im.src=u}
+function attach(el,c){ready.then(()=>{if(el.querySelector("img"))return;const u=cache[c.wiki];if(u)put(el,c,u);if(netErr)return;specific(c).then(s=>{if(!s||!el.isConnected)return;const im=el.querySelector("img");if(!im)return put(el,c,s);if(im.src===s)return;const n=new Image();n.onload=()=>{im.src=s};n.src=s})})}
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){io.unobserve(e.target);if(photoOK)attach(e.target,CARS[e.target.dataset.i])}}),{rootMargin:"200px"});
 const key=c=>c.brand+"|"+c.model;let favOnly=false,fav=new Set();
 try{fav=new Set(JSON.parse(localStorage.getItem("ad_fav")||"[]"))}catch(e){}
