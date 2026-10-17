@@ -112,10 +112,25 @@ footer{background:#050a1c;color:#9aa6c4;border:0;padding:40px 0 100px}
 .lks{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;font-size:14px}.lks a{color:var(--accent);font-weight:600;text-decoration:none}.fine{font-size:12px;color:var(--muted);margin:8px 0 0}
 .chs{display:grid;gap:14px;margin-top:20px}.ch h4{margin:0 0 6px;font-size:13px;color:var(--muted)}.cr{display:grid;grid-template-columns:120px 1fr auto;gap:10px;align-items:center;font-size:13px;margin:4px 0}.cr span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cr div{height:8px;background:var(--chip);border-radius:99px;overflow:hidden}.cr i{display:block;height:100%;background:var(--accent)}
 .wz{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}.wz label{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+.cd{display:grid;grid-template-columns:1.1fr 1.2fr 1fr;gap:20px;background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+.cdi .art{height:100%;min-height:240px}.cdb{padding:20px 0}.cdb h3{font-size:26px;margin:2px 0 6px}.cdb ul{padding-left:18px;color:var(--muted);font-size:14px}.cdq{padding:20px;background:var(--bg)}.cdq h4{margin:0 0 6px}.cdq .pill{display:block;margin:8px 0;width:100%;text-align:left}#qa{margin-top:10px;font-size:14px}
+@media(max-width:900px){.cd{grid-template-columns:1fr}.cdb,.cdq{padding:16px 20px}}
+.tp{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:12px}
+.tg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}.tg label,.pg5 label{display:grid;gap:4px;font-size:13px;color:var(--muted);align-content:start}.tg select,.tg input:not([type=range]),.pg5 input{font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px;width:100%}
+.chk{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px;font-size:14px}.pg5{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+@media(max-width:700px){.tg{grid-template-columns:1fr}.pg5{grid-template-columns:1fr 1fr}}
+#pres{margin-top:16px}
+.fin{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;background:var(--chip);border-radius:12px;padding:14px 16px;margin-bottom:12px;font-size:18px}
+.bt h4{margin:12px 0 4px;font-size:13px;color:var(--muted)}.br{display:grid;grid-template-columns:140px 1fr 110px;gap:10px;align-items:center;font-size:13px;margin:4px 0}.br span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.br div{height:10px;background:var(--chip);border-radius:99px;overflow:hidden}.br i{display:block;height:100%;background:var(--muted);width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}.br.w i{background:var(--accent)}.br.w b{color:var(--accent)}
+.pcs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.pc{background:var(--bg);border-radius:12px;padding:12px 14px;display:grid}.pc span{font-size:12px;color:var(--muted)}.pc b{font-size:22px}.pc em{font-style:normal;font-size:12px;color:var(--muted)}
+@media(max-width:700px){.pcs{grid-template-columns:1fr 1fr}.br{grid-template-columns:90px 1fr 90px}}
+.sw{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}.sq{width:32px;height:32px;border-radius:50%;border:2px solid var(--line);cursor:pointer}.sq.on{outline:3px solid var(--accent)}.sw input[type=color]{width:38px;height:34px;padding:0;border:0;background:none}.sw span{font-size:13px;color:var(--muted)}
+.cfv{background:linear-gradient(180deg,var(--chip),var(--bg));border-radius:16px;padding:20px}.cfv svg{width:100%;max-width:560px;display:block;margin:0 auto}
+.gr{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px}.gr b{flex:1;cursor:pointer}.gr select{padding:6px 10px}
 </style>
 </head>
 <body>
-<header><div class="wrap nav"><div class="logo">Auto<span>Dex</span></div><nav><a href="#cars" class="keep" data-t="nav_cars">Cars</a><a href="#brands" data-t="nav_brands">Brands</a><a href="#" id="nc" class="keep" data-t="nav_compare">Compare</a><button class="btn" id="th" aria-label="Toggle dark mode">◐</button><div class="ctl"><select id="lg" aria-label="Language"><option value="en">EN</option><option value="ru">RU</option><option value="uz">UZ</option></select><select id="cu" aria-label="Currency"><option>USD</option><option>EUR</option><option>GBP</option><option>RUB</option><option>UZS</option></select><button class="btn" id="un" title="Units">hp · km/h</button></div></nav></div></header>
+<header><div class="wrap nav"><div class="logo">Auto<span>Dex</span></div><nav><a href="#cars" class="keep" data-t="nav_cars">Cars</a><a href="#brands" data-t="nav_brands">Brands</a><a href="#tools" data-t="nav_tools">Tools</a><a href="#" id="nc" class="keep" data-t="nav_compare">Compare</a><button class="btn" id="th" aria-label="Toggle dark mode">◐</button><div class="ctl"><select id="lg" aria-label="Language"><option value="en">EN</option><option value="ru">RU</option><option value="uz">UZ</option></select><select id="cu" aria-label="Currency"><option>USD</option><option>EUR</option><option>GBP</option><option>RUB</option><option>UZS</option></select><button class="btn" id="un" title="Units">hp · km/h</button></div></nav></div></header>
 <div class="hero"><div class="wrap hg">
 <div><h1 data-t="h1">Find, compare and explore any car.</h1><p data-t="hp">Real photos, key specs and prices for the world's most popular models, in one place.</p>
 <div class="sb"><input id="q" type="search" placeholder="Search brand or model…" aria-label="Search cars"><button id="go" data-t="go">Search</button></div>
@@ -123,15 +138,17 @@ footer{background:#050a1c;color:#9aa6c4;border:0;padding:40px 0 100px}
 <div class="feat" id="feat"><em>Featured: Porsche 911</em></div>
 </div></div>
 <main class="wrap">
+<section id="cotd"><h2 class="t" data-t="cotd_h">Car of the Day</h2><div class="cd" id="cd"></div></section>
 <section id="brands"><h2 class="t" data-t="brands_h">Browse by brand</h2><div class="pills" id="pills"></div><div class="bi" id="bi"></div></section>
 <section id="rank"><h2 class="t" data-t="rank_h">Rankings</h2><div class="pills" id="rt"></div><div class="rl" id="rl"></div></section>
+<section id="tools"><h2 class="t" data-t="tools_h">Tools</h2><div class="pills" id="tt"></div><div class="tp" id="tp"></div></section>
 <section id="cars"><h2 class="t" data-t="all_cars">All cars</h2>
 <div class="tools"><button class="pill" id="favb">♡ Favorites (0)</button><select id="fd" aria-label="Drivetrain"><option value="" data-t="all_dr">All drivetrains</option></select><select id="fb" aria-label="Body type"><option value="" data-t="all_body">All body types</option></select><select id="ff" aria-label="Fuel"><option value="" data-t="all_fuel">All fuel types</option></select><select id="fs" aria-label="Sort"><option value="name" data-t="s_name">Sort: Name</option><option value="hp" data-t="s_hp">Power: high to low</option><option value="acc" data-t="s_acc">Acceleration: fastest</option><option value="price" data-t="s_price">Price: low to high</option></select><label class="rng"><span data-t="maxp">Max price</span> <b id="pv"></b><input type="range" id="fp" min="20000" max="320000" step="5000" value="320000" aria-label="Maximum price"></label></div>
 <div class="note" id="note">Live photos load when this page is hosted on your own site. Here you see illustrations instead.</div>
 <div class="count" id="cnt"></div><div class="grid" id="grid"></div>
 <div class="mw"><button class="btn p" id="more" data-t="more">Show more cars</button></div></section>
 </main>
-<footer><div class="wrap"><div class="fg"><div><div class="logo">Auto<span>Dex</span></div><div>Find, compare and explore cars from around the world.</div></div><div><h4>Explore</h4><a href="#cars">All cars</a><a href="#brands">Brands</a><a href="#" onclick="cmp();return false">Compare</a></div><div><h4>Sources</h4><a href="https://en.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a><a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="fl">Specs and prices are approximate and vary by market, year and trim. Currency rates are fixed approximations, not live. Photos come from Wikipedia and Wikimedia Commons under their respective licenses. AutoDex v5.0</div></div></footer>
+<footer><div class="wrap"><div class="fg"><div><div class="logo">Auto<span>Dex</span></div><div>Find, compare and explore cars from around the world.</div></div><div><h4>Explore</h4><a href="#cars">All cars</a><a href="#brands">Brands</a><a href="#" onclick="cmp();return false">Compare</a></div><div><h4>Sources</h4><a href="https://en.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a><a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="fl">Specs and prices are approximate and vary by market, year and trim. Currency rates are fixed approximations, not live. Photos come from Wikipedia and Wikimedia Commons under their respective licenses. AutoDex v6.0</div></div></footer>
 <div id="tray"><span id="tc"></span><button class="btn p" id="tb">Compare</button><button class="btn c" id="tx">Clear</button></div>
 <dialog id="dlg"></dialog>
 <script>
@@ -492,17 +509,17 @@ let rk=0,curCar=null;
 function rankDraw(){$("rt").innerHTML=RK.map((r,k)=>`<button class="pill${k===rk?" on":""}" data-k="${k}">${t(r[0])}</button>`).join("");const r=RK[rk];$("rl").innerHTML=rows(CARS.map((c,i)=>[c,i]).filter(([c])=>!r[2]||r[2](c)).sort((a,b)=>r[1](a[0],b[0])).slice(0,8),r[3])}
 $("rt").onclick=e=>{const b=e.target.closest("[data-k]");if(b){rk=+b.dataset.k;rankDraw()}};
 $("rl").onclick=e=>{const b=e.target.closest("[data-j]");if(b)openCar(+b.dataset.j)};
-function applyLang(){document.documentElement.lang=lang;document.querySelectorAll("[data-t]").forEach(e=>e.textContent=t(e.dataset.t));$("q").placeholder=t("search_ph");render();rankDraw();brandInfo();saveFav()}
+function applyLang(){document.documentElement.lang=lang;document.querySelectorAll("[data-t]").forEach(e=>e.textContent=t(e.dataset.t));$("q").placeholder=t("search_ph");render();rankDraw();brandInfo();saveFav();toolDraw();cotd()}
 $("lg").onchange=()=>{lang=$("lg").value;applyLang()};
 $("cu").onchange=()=>{cur=$("cu").value;applyLang()};
 $("un").onclick=()=>{unit=unit==="a"?"b":"a";$("un").textContent=unit==="a"?"hp · km/h":"kW · mph";applyLang()};
 function wizard(){const o=(id,a)=>`<select id="${id}">${a.map(([v,n])=>`<option value="${v}">${n}</option>`).join("")}</select>`;
 $("dlg").className="";
-$("dlg").innerHTML=`<div class="db"><button class="x" aria-label="Close" onclick="dlg.close()">×</button><h2>${t("wiz_h")}</h2><div class="wz"><label>${t("wiz_budget")}${o("wb",[[0,t("any")],[30000,"≤ "+fmt(30000)],[50000,"≤ "+fmt(50000)],[80000,"≤ "+fmt(80000)],[150000,"≤ "+fmt(150000)]])}</label><label>${t("body")}${o("wy",[["",t("any")],...uniq("body").map(v=>[v,v])])}</label><label>${t("fuel")}${o("wf",[["",t("any")],...uniq("fuel").map(v=>[v,v])])}</label><label>${t("wiz_for")}${o("wp",[["perf",t("p_perf")],["value",t("p_val")],["eff",t("p_eff")],["fam",t("p_fam")]])}</label></div><button class="btn p" id="wgo">${t("wiz_go")}</button><div class="rl" id="wr"></div></div>`;
+$("dlg").innerHTML=`<div class="db"><button class="x" aria-label="Close" onclick="dlg.close()">×</button><h2>${t("wiz_h")}</h2><div class="wz"><label>${t("wiz_budget")}${o("wb",[[0,t("any")],[30000,"≤ "+fmt(30000)],[50000,"≤ "+fmt(50000)],[80000,"≤ "+fmt(80000)],[150000,"≤ "+fmt(150000)]])}</label><label>Brand${o("wbr",[["",t("any")],...uniq("brand").map(v=>[v,v])])}</label><label>${t("body")}${o("wy",[["",t("any")],...uniq("body").map(v=>[v,v])])}</label><label>${t("fuel")}${o("wf",[["",t("any")],...uniq("fuel").map(v=>[v,v])])}</label><label>${t("wiz_for")}${o("wp",[["perf",t("p_perf")],["value",t("p_val")],["eff",t("p_eff")],["fam",t("p_fam")]])}</label></div><button class="btn p" id="wgo">${t("wiz_go")}</button><div class="rl" id="wr"></div></div>`;
 if(!$("dlg").open)$("dlg").showModal()}
-function wizRes(){const b=+$("wb").value||1e9,bd=$("wy").value,fu=$("wf").value,pr=$("wp").value,BW={SUV:3,Wagon:3,Sedan:2,Pickup:2,Hatchback:1.5};
+function wizRes(){const b=+$("wb").value||1e9,bd=$("wy").value,br=$("wbr").value,fu=$("wf").value,pr=$("wp").value,BW={SUV:3,Wagon:3,Sedan:2,Pickup:2,Hatchback:1.5};
 const sc=c=>pr==="perf"?c.hp/c.acc:pr==="value"?c.hp/c.price*1e3:pr==="eff"?(c.fuel==="Electric"?3:c.fuel==="Hybrid"?2:c.fuel==="Diesel"?.5:0)-c.price/1e5:(BW[c.body]||0)-c.price/1e5;
-const l=CARS.map((c,i)=>[c,i]).filter(([c])=>c.price<=b&&(!bd||c.body===bd)&&(!fu||c.fuel===fu)).sort((x,y)=>sc(y[0])-sc(x[0])).slice(0,6);
+const l=CARS.map((c,i)=>[c,i]).filter(([c])=>c.price<=b&&(!br||c.brand===br)&&(!bd||c.body===bd)&&(!fu||c.fuel===fu)).sort((x,y)=>sc(y[0])-sc(x[0])).slice(0,6);
 $("wr").innerHTML=l.length?rows(l,c=>P(c)+" · "+fmt(c.price)):`<p>${t("none")}</p>`}
 $("wz").onclick=wizard;
 const gal={};
@@ -523,6 +540,160 @@ attach($("dlg").querySelector(".art"),c);calcPay();
 try{history.replaceState(null,"","#car="+encodeURIComponent(k))}catch(e){}
 gallery(c).then(g=>{const el=$("gl");if(!el||curCar!==c)return;if(!g.length){el.remove();return}el.innerHTML=g.map(u=>`<img src="${u}" data-g="${u}" alt="" loading="lazy">`).join("")})}
 
+Object.assign(L.en,{nav_tools:"Tools",tools_h:"Tools",cotd_h:"Car of the Day",t_battle:"Car Battle",t_perf:"Performance",t_cost:"Cost to own",t_cfg:"Configurator",t_garage:"My Garage"});
+Object.assign(L.ru,{nav_tools:"Инструменты",tools_h:"Инструменты",cotd_h:"Авто дня",t_battle:"Битва авто",t_perf:"Динамика",t_cost:"Стоимость владения",t_cfg:"Конфигуратор",t_garage:"Мой гараж"});
+Object.assign(L.uz,{nav_tools:"Vositalar",tools_h:"Vositalar",cotd_h:"Kun avtomobili",t_battle:"Avto jangi",t_perf:"Dinamika",t_cost:"Egalik narxi",t_cfg:"Konfigurator",t_garage:"Mening garajim"});
+const WT={};`BMW|3 Series:1600
+BMW|5 Series:1750
+BMW|X5:2100
+BMW|i4:2050
+Mercedes-Benz|C-Class:1650
+Mercedes-Benz|E-Class:1800
+Mercedes-Benz|S-Class:2050
+Mercedes-Benz|G-Class:2500
+Mercedes-Benz|GLC:1900
+Audi|A3:1400
+Audi|A4:1600
+Audi|A6:1800
+Audi|Q5:1850
+Audi|Q7:2100
+Audi|e-tron GT:2300
+Audi|R8:1650
+Toyota|Camry:1550
+Toyota|Corolla:1350
+Toyota|Land Cruiser:2500
+Toyota|RAV4:1650
+Toyota|Prius:1400
+Toyota|Supra:1550
+Toyota|Hilux:2100
+Tesla|Model 3:1850
+Tesla|Model Y:1990
+Tesla|Model S:2150
+Tesla|Model X:2450
+Porsche|911:1530
+Porsche|Taycan:2150
+Porsche|Cayenne:2100
+Porsche|Macan:1900
+Porsche|Panamera:1950
+Ford|Mustang:1750
+Ford|F-150:2300
+Ford|Explorer:2050
+Ford|Bronco:2000
+Volkswagen|Golf:1350
+Volkswagen|Passat:1500
+Volkswagen|Tiguan:1700
+Volkswagen|ID.4:2100
+Honda|Civic:1300
+Honda|Accord:1550
+Honda|CR-V:1600
+Hyundai|Elantra:1350
+Hyundai|Tucson:1600
+Hyundai|Sonata:1500
+Hyundai|Ioniq 5:2050
+Kia|Sportage:1600
+Kia|K5:1450
+Kia|Sorento:1850
+Kia|EV6:1990
+Kia|Stinger:1800
+Nissan|GT-R:1750
+Nissan|Altima:1450
+Nissan|Leaf:1600
+Nissan|Patrol:2700
+Chevrolet|Corvette:1560
+Chevrolet|Camaro:1650
+Chevrolet|Tahoe:2650
+Mazda|Mazda3:1350
+Mazda|CX-5:1650
+Mazda|MX-5:1050
+Lexus|RX:1950
+Lexus|ES:1650
+Land Rover|Defender:2300
+Land Rover|Range Rover:2500
+Lamborghini|Huracán:1475
+Lamborghini|Urus:2200
+Volvo|XC90:2100
+Jeep|Wrangler:2000
+Subaru|Outback:1650
+BYD|Seal:2100
+Ferrari|Roma:1470
+Ferrari|SF90:1570
+Ferrari|296 GTB:1470`.split("\n").forEach(l=>{const a=l.split(":");WT[a[0]]=+a[1]});
+const WV={"BMW|M5":2390,"BMW|M3":1730,"BMW|M3 Competition xDrive":1800,"Ford|F-150 Lightning":2950,"Ford|F-150 Raptor":2800,"Porsche|911 GT3":1435,"Porsche|911 GT3 RS":1450,"Chevrolet|Corvette ZR1":1700,"Mercedes-Benz|AMG G63":2560};
+const wt=c=>WV[c.brand+"|"+c.model]||WT[c.brand+"|"+c.line]||0;
+const ecoOf=c=>{const S=SP[c.brand+"|"+c.line];return S?S[2]:null};
+const ecoStr=v=>!v?"—":v[0]==="r"?(unit==="a"?"~"+v.slice(1)+" km":"~"+Math.round(v.slice(1)*.621)+" mi"):(unit==="a"?"~"+v+" L/100 km":"~"+Math.round(235.2/v)+" mpg");
+const idx=(b,m,d)=>{const i=CARS.findIndex(c=>c.brand===b&&c.model===m);return i<0?d:i};
+const TS={tab:0,ba:idx("BMW","M5",0),bb:idx("Mercedes-Benz","AMG E63 S",1),bc:["pw","ac","pr","pp","pt"],run:false,pa:idx("Porsche","911 GT3",0),ld:0,ta:idx("Toyota","Camry 2.5 Hybrid",0),tb:idx("Tesla","Model 3 Long Range AWD",1),km:15000,yr:5,fp:1.2,ep:.12,kw:17,mp:2,ip:3.5,dp:12,cc:idx("Ford","Mustang GT",0),col:"#c2410c",rim:0,sz:19,bs:"coupe",gc:"All"};
+let GR={cols:["Dream supercars","JDM legends","Daily drivers"],map:{}},cdq={i:0,j:1};
+try{GR=Object.assign(GR,JSON.parse(localStorage.getItem("ad_gr")||"{}"))}catch(e){}
+function saveGR(){try{localStorage.setItem("ad_gr",JSON.stringify(GR))}catch(e){}}
+const BC=[["pw",c=>c.hp,1,"Power",c=>P(c)],["ac",c=>c.acc,-1,"Acceleration",c=>A(c)],["pr",c=>c.price,-1,"Price",c=>fmt(c.price)],["pp",c=>c.hp/c.price,1,"Power per $",c=>(c.hp/c.price*1000).toFixed(1)+" hp / $1k"],["pt",c=>wt(c)?c.hp/wt(c):0,1,"Power-to-weight",c=>wt(c)?Math.round(c.hp/wt(c)*1000)+" hp/t":"n/a"]];
+const TABS=["t_battle","t_perf","t_cost","t_cfg","t_garage"];
+const opt=(a,v)=>a.map(([x,n])=>`<option value="${x}"${String(x)===String(v)?" selected":""}>${n}</option>`).join("");
+const CS=CARS.map((c,i)=>[i,c.brand+" "+c.model]).sort((a,b)=>a[1].localeCompare(b[1]));
+const carSel=(id,v)=>`<select id="${id}">${opt(CS,v)}</select>`;
+function cotd(){const n=CARS.length,day=Math.floor((Date.now()-new Date().getTimezoneOffset()*6e4)/864e5),i=(day*37+11)%n,c=CARS[i];let j=(day*53+7)%n;while(j===i||CARS[j].acc===c.acc)j=(j+1)%n;
+const d=CARS[j],b=BR[c.brand],w=wt(c),rk=CARS.filter(x=>x.hp>c.hp).length+1,pc=Math.round(CARS.filter(x=>x.acc>c.acc).length/n*100);
+const f=[`Quicker from 0–100 than ${pc}% of the versions in this catalog.`,`#${rk} most powerful of ${n} versions (${P(c)}).`,`Costs roughly ${fmt(c.price/c.hp,1)} per horsepower.`];
+if(b)f.push(`${c.brand} was founded in ${b[1]} in ${b[0]} (${b[2]}).`);if(w)f.push(`Estimated power-to-weight: ${Math.round(c.hp/w*1000)} hp per tonne.`);
+cdq={i,j};
+$("cd").innerHTML=`<div class="cdi">${art(c,i)}</div><div class="cdb"><div class="brand">${c.brand}${c.line!==c.model?" · "+c.line:""}</div><h3>${c.model}</h3><div class="eng">${c.engine||""}</div><ul>${f.map(x=>`<li>${x}</li>`).join("")}</ul><button class="btn p" data-j="${i}">${t("details")}</button></div><div class="cdq"><h4>Quick quiz</h4><p>Which is quicker from ${AL()}?</p><button class="pill" data-q="${i}">${c.brand} ${c.model}</button><button class="pill" data-q="${j}">${d.brand} ${d.model}</button><div id="qa"></div></div>`;
+attach($("cd").querySelector(".art"),c)}
+$("cd").onclick=e=>{const b=e.target.closest("[data-j]");if(b){openCar(+b.dataset.j);return}const q=e.target.closest("[data-q]");if(q){const a=CARS[cdq.i],d=CARS[cdq.j],win=a.acc<d.acc?cdq.i:cdq.j;$("qa").innerHTML=(+q.dataset.q===win?"✅ Correct! ":"❌ Not quite. ")+`${a.model}: ${A(a)} vs ${d.model}: ${A(d)}`}};
+function toolDraw(){$("tt").innerHTML=TABS.map((k,i)=>`<button class="pill${i===TS.tab?" on":""}" data-tab="${i}">${t(k)}</button>`).join("");toolPanel()}
+function garageHtml(){const cols=["All",...GR.cols],g=TS.gc,sv=[...fav].map(k=>CARS.findIndex(c=>key(c)===k)).filter(i=>i>=0),l=sv.filter(i=>g==="All"||GR.map[key(CARS[i])]===g);
+return `<div class="pills">${cols.map(c=>`<button class="pill${c===g?" on":""}" data-gc="${c}">${c}</button>`).join("")}</div><div class="tg"><label>New collection<input id="ncn" placeholder="e.g. Track weapons"></label><button class="btn p" data-nc="1">Create</button></div>${["Dream supercars","JDM legends","Daily drivers"].includes(g)?`<button class="btn" style="border:1px solid var(--line);margin-bottom:10px" data-sg="${g}">Suggest cars for “${g}”</button>`:""}<div class="rl">${l.length?l.map(i=>{const c=CARS[i],k=key(c);return `<div class="gr"><b data-j="${i}">${c.brand} ${c.model}</b><select data-m="${k}"><option value="">—</option>${GR.cols.map(n=>`<option${GR.map[k]===n?" selected":""}>${n}</option>`).join("")}</select><button class="btn" data-rm="${k}">✕</button></div>`}).join(""):"<p>Nothing here yet. Tap ♡ on any car to save it to your garage.</p>"}</div>`}
+function toolPanel(){const k=TS.tab;let h="";
+if(k===0)h=`<div class="tg"><label>Car A${carSel("ba",TS.ba)}</label><label>Car B${carSel("bb",TS.bb)}</label></div><div class="chk">${BC.map(c=>`<label><input type="checkbox" data-bc="${c[0]}"${TS.bc.includes(c[0])?" checked":""}> ${c[3]}</label>`).join("")}</div><button class="btn p" data-go="1">Fight!</button>`;
+if(k===1)h=`<div class="tg"><label>Car${carSel("pa",TS.pa)}</label><label>Extra load (passengers, cargo): <b id="ldv">${TS.ld} kg</b><input type="range" id="ld" min="0" max="400" step="25" value="${TS.ld}"></label></div>`;
+if(k===2)h=`<div class="tg"><label>Car A${carSel("ta",TS.ta)}</label><label>Car B${carSel("tb",TS.tb)}</label></div><div class="pg5">${[["km","Distance per year (km)"],["yr","Years of ownership"],["fp","Fuel price (USD per litre)"],["ep","Electricity (USD per kWh)"],["kw","EV use (kWh/100 km)"],["mp","Maintenance (% of price per year)"],["ip","Insurance (% of price per year)"],["dp","Depreciation (% per year)"]].map(([id,l])=>`<label>${l}<input type="number" id="c_${id}" value="${TS[id]}" step="any" min="0"></label>`).join("")}</div>`;
+if(k===3)h=`<div class="tg"><label>Base car${carSel("cc",TS.cc)}</label><label>Wheel size: <b id="szv">${TS.sz}"</b><input type="range" id="sz" min="17" max="22" value="${TS.sz}"></label></div><div class="sw">${["#c2410c","#dc2626","#1d4ed8","#0f766e","#111827","#e5e7eb","#facc15","#7c3aed"].map(c=>`<button class="sq${c===TS.col?" on":""}" style="background:${c}" data-col="${c}" aria-label="Paint ${c}"></button>`).join("")}<input type="color" id="pc" value="${/^#/.test(TS.col)?TS.col:"#c2410c"}" aria-label="Custom paint"></div><div class="sw"><span>Rims</span>${["Spoke","Mesh","Disc"].map((n,i)=>`<button class="pill${i===TS.rim?" on":""}" data-rim="${i}">${n}</button>`).join("")}<span>Body</span>${["sedan","suv","coupe"].map(n=>`<button class="pill${n===TS.bs?" on":""}" data-bs="${n}">${n}</button>`).join("")}</div>`;
+if(k===4)h=garageHtml();
+$("tp").innerHTML=h+`<div id="pres"></div>`;pRes()}
+function pRes(){const k=TS.tab,el=$("pres");if(!el||k===4)return;
+if(k===0)el.innerHTML=TS.run?battle():"";if(k===1)el.innerHTML=perf();if(k===2)el.innerHTML=cost();if(k===3)el.innerHTML=cfgView();
+if(k===0&&TS.run)requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll("#pres [data-w]").forEach(e=>e.style.width=e.dataset.w)))}
+function battle(){const a=CARS[TS.ba],b=CARS[TS.bb];let sa=0,sb=0,h="";
+BC.filter(c=>TS.bc.includes(c[0])).forEach(([id,f,dir,lab,fv])=>{const x=f(a),y=f(b);if(!x||!y)return;const wa=x!==y&&(dir>0?x>y:x<y),wb=x!==y&&!wa;if(wa)sa++;if(wb)sb++;
+const m=dir>0?Math.max(x,y):Math.min(x,y),wd=v=>Math.round((dir>0?v/m:m/v)*100)+"%";
+h+=`<div class="bt"><h4>${lab}</h4><div class="br${wa?" w":""}"><span>${a.model}</span><div><i data-w="${wd(x)}"></i></div><b>${fv(a)}</b></div><div class="br${wb?" w":""}"><span>${b.model}</span><div><i data-w="${wd(y)}"></i></div><b>${fv(b)}</b></div></div>`});
+const win=sa===sb?"It's a tie!":(sa>sb?a:b).brand+" "+(sa>sb?a:b).model+" wins!";
+return `<div class="fin"><b>${a.model} ${sa} – ${sb} ${b.model}</b><span>🏆 ${win}</span></div>${h||"<p>Select at least one criterion.</p>"}`}
+function perf(){const c=CARS[TS.pa],w=wt(c);if(!w)return"<p>No weight data for this car.</p>";const m=w+TS.ld,pt=c.hp/m*1000,et=5.825*Math.cbrt(m*2.2046/c.hp),a=c.acc*Math.sqrt(m/w),mx=Math.max(...CARS.map(x=>wt(x)?x.hp/wt(x)*1000:0));
+const cd=(l,v,s)=>`<div class="pc"><span>${l}</span><b>${v}</b><em>${s||""}</em></div>`;
+return `<div class="pcs">${cd("Power",P(c),unit==="a"?Math.round(c.hp*.7457)+" kW":c.hp+" hp")}${cd("Weight (est.)",m+" kg","kerb "+w+" kg + load "+TS.ld+" kg")}${cd("Power-to-weight",Math.round(pt)+" hp/t",(m/c.hp).toFixed(1)+" kg per hp")}${cd(AL()+" (est.)",(unit==="a"?a:a-.2).toFixed(1)+" s",TS.ld?"catalog: "+A(c):"catalog value")}${cd("Quarter mile (est.)",et.toFixed(1)+" s","402 m")}${cd("Torque","n/a","not in this catalog")}</div><div class="bar"><label><span>Power-to-weight vs. best in catalog</span><span>${Math.round(pt)} / ${Math.round(mx)} hp/t</span></label><div><i style="width:${Math.round(pt/mx*100)}%"></i></div></div><p class="fine">Estimates from typical kerb weight and a standard quarter-mile formula. Real results vary with traction, tyres and conditions.</p>`}
+function tco(c){const e=ecoOf(c),sib=CARS.filter(x=>x.brand===c.brand&&x.line===c.line),av=sib.reduce((s,x)=>s+x.hp,0)/sib.length,f=.8+.4*c.hp/av,km=TS.km,n=Math.max(1,TS.yr);let fuel;
+if(c.fuel==="Electric")fuel=km/100*TS.kw*f*TS.ep;else fuel=km/100*(e&&e[0]!=="r"?+e:9)*f*TS.fp;
+const mt=c.price*TS.mp/100,ins=c.price*TS.ip/100,dep=c.price*(1-Math.pow(1-TS.dp/100,n))/n,yr=fuel+mt+ins+dep;return{fuel,mt,ins,dep,yr,tot:yr*n,pk:yr/Math.max(km,1)}}
+function cost(){const a=CARS[TS.ta],b=CARS[TS.tb],x=tco(a),y=tco(b),m=v=>fmt(v,1),R=(l,k,f)=>`<tr><td>${l}</td><td class="${x[k]<y[k]?"best":""}">${f(x[k])}</td><td class="${y[k]<x[k]?"best":""}">${f(y[k])}</td></tr>`;
+return `<table class="ct"><tr><th></th><th>${a.brand} ${a.model}</th><th>${b.brand} ${b.model}</th></tr>${R("Fuel / energy per year","fuel",m)}${R("Maintenance per year","mt",m)}${R("Insurance per year","ins",m)}${R("Depreciation per year (avg)","dep",m)}${R("Total per year","yr",m)}${R("Total over "+TS.yr+" years","tot",m)}${R("Cost per km","pk",v=>{const z=v*RATE[cur];return (z<10?z.toFixed(2):Math.round(z))+" "+cur})}</table><p class="fine">Estimates only. Fuel use is the typical figure for the model line, scaled by power. Edit the numbers above to match your country. No financing or tax costs included.</p>`}
+function cfgSvg(){const r=9+(TS.sz-17)*1.4,k=TS.rim,cab={sedan:"M82 24h52l14 18H66z",suv:"M76 14h72l14 28H62z",coupe:"M96 28h36l24 14H70z"}[TS.bs];
+const rim=x=>{const n=k===0?5:k===1?10:0;let s="";for(let a=0;a<n;a++)s+=`<line x1="${x}" y1="68" x2="${x}" y2="${68-r+2}" stroke="#e5e7eb" stroke-width="${k===1?1.2:2.4}" transform="rotate(${a*360/n} ${x} 68)"/>`;return `<circle cx="${x}" cy="68" r="${r}" fill="#111827"/><circle cx="${x}" cy="68" r="${r-3}" fill="${k===2?"#cbd5e1":"#1f2937"}"/>${s}<circle cx="${x}" cy="68" r="2.5" fill="#e5e7eb"/>`};
+return `<svg viewBox="0 0 240 90" aria-label="Car preview"><path d="M12 62c0-8 4-12 12-14l28-6 24-20c4-3 8-4 14-4h58c8 0 13 2 18 8l16 16 26 4c6 1 10 6 10 14v6c0 3-2 5-5 5h-12a20 20 0 0 0-40 0H88a20 20 0 0 0-40 0H17c-3 0-5-2-5-5z" fill="${TS.col}"/><path d="${cab}" fill="#fff" opacity=".35"/>${rim(68)}${rim(178)}</svg>`}
+function cfgView(){const c=CARS[TS.cc];return `<div class="cfv">${cfgSvg()}</div><p class="fine">${c.brand} ${c.model} · ${P(c)} · from ${fmt(c.price)}. The preview is a generic 2D body that shows paint, wheels and style, not the exact model.</p>`}
+function suggest(n){const J=["Toyota","Honda","Nissan","Mazda","Lexus","Subaru"],f={"Dream supercars":c=>c.acc<3.5,"JDM legends":c=>J.includes(c.brand)&&(c.acc<6.5||c.body==="Coupe"||c.body==="Convertible"),"Daily drivers":c=>c.price<=35000&&c.hp>=150}[n];
+CARS.filter(f).sort((a,b)=>b.hp-a.hp).slice(0,6).forEach(c=>{fav.add(key(c));GR.map[key(c)]=n});saveFav();saveGR();render();toolPanel()}
+$("tt").onclick=e=>{const b=e.target.closest("[data-tab]");if(b){TS.tab=+b.dataset.tab;toolDraw()}};
+$("tp").addEventListener("click",e=>{const g=a=>e.target.closest("["+a+"]");let b;
+if(b=g("data-j"))openCar(+b.dataset.j);
+else if(g("data-go")){TS.run=true;pRes()}
+else if(b=g("data-col")){TS.col=b.dataset.col;toolPanel()}
+else if(b=g("data-rim")){TS.rim=+b.dataset.rim;toolPanel()}
+else if(b=g("data-bs")){TS.bs=b.dataset.bs;toolPanel()}
+else if(b=g("data-gc")){TS.gc=b.dataset.gc;toolPanel()}
+else if(g("data-nc")){const n=$("ncn").value.replace(/[<>"&]/g,"").trim();if(n&&!GR.cols.includes(n)){GR.cols.push(n);TS.gc=n;saveGR();toolPanel()}}
+else if(b=g("data-sg"))suggest(b.dataset.sg);
+else if(b=g("data-rm")){fav.delete(b.dataset.rm);saveFav();render();toolPanel()}});
+$("tp").addEventListener("change",e=>{const el=e.target,id=el.id;
+if(["ba","bb","pa","ta","tb","cc"].includes(id)){TS[id]=+el.value;if(id==="cc"){const c=CARS[TS.cc];TS.bs=["SUV","Pickup","Wagon"].includes(c.body)?"suv":["Coupe","Convertible"].includes(c.body)?"coupe":"sedan";toolPanel()}else pRes()}
+else if(el.dataset.bc){TS.bc=[...document.querySelectorAll("#tp [data-bc]")].filter(x=>x.checked).map(x=>x.dataset.bc);if(TS.run)pRes()}
+else if(el.dataset.m){const k=el.dataset.m;if(el.value)GR.map[k]=el.value;else delete GR.map[k];saveGR();if(TS.gc!=="All")toolPanel()}
+else if(id==="pc"){TS.col=el.value;toolPanel()}});
+$("tp").addEventListener("input",e=>{const el=e.target,id=el.id;
+if(id==="ld"){TS.ld=+el.value;$("ldv").textContent=TS.ld+" kg";pRes()}
+else if(id==="sz"){TS.sz=+el.value;$("szv").textContent=TS.sz+'"';pRes()}
+else if(id&&id.startsWith("c_")){TS[id.slice(2)]=+el.value||0;pRes()}});
+
 function cmp(){
 if(sel.size<2){alert("Add at least 2 cars with the + Compare button first.");return}
 const cs=[...sel].map(i=>[i,CARS[i]]),m=(k,f)=>f(...cs.map(x=>x[1][k]));
@@ -530,7 +701,7 @@ const row=(n,k,fmtv,best)=>`<tr><td>${n}</td>${cs.map(([i,c])=>`<td class="${bes
 const ch=(lab,k,f,inv)=>{const v=cs.map(x=>x[1][k]),mx=Math.max(...v),mn=Math.min(...v);return `<div class="ch"><h4>${lab}</h4>${cs.map(([i,c])=>`<div class="cr"><span>${c.model}</span><div><i style="width:${Math.round((inv?mn/c[k]:c[k]/mx)*100)}%"></i></div><b>${f(c[k])}</b></div>`).join("")}</div>`};
 const charts=`<div class="chs">${ch(t("power"),"hp",v=>unit==="a"?v+" hp":Math.round(v*.7457)+" kW")}${ch(AL(),"acc",v=>unit==="a"?v+" s":(v-.2).toFixed(1)+" s",1)}${ch(t("price"),"price",v=>fmt(v),1)}</div>`;
 $("dlg").className="w";
-$("dlg").innerHTML=`<div class="db"><button class="x" aria-label="Close" onclick="dlg.close()">×</button><h2>${t("cmp_h")}</h2><table class="ct"><tr><th></th>${cs.map(([i,c])=>`<th>${art(c,i)}<div class="brand" style="margin-top:8px">${c.brand}</div>${c.model}</th>`).join("")}</tr>${row("Engine","engine",v=>v||"—")}${row("Body","body",v=>v)}${row("Fuel","fuel",v=>v)}${row(t("power"),"hp",v=>unit==="a"?v+" hp":Math.round(v*.7457)+" kW",m("hp",Math.max))}${row(AL(),"acc",v=>unit==="a"?v+" s":(v-.2).toFixed(1)+" s",m("acc",Math.min))}${row("Drivetrain","drive",v=>v)}${row("Approx. price","price",v=>fmt(v),m("price",Math.min))}</table>${charts}<p style="color:var(--muted);font-size:13px">Best value in each row is highlighted.</p></div>`;
+$("dlg").innerHTML=`<div class="db"><button class="x" aria-label="Close" onclick="dlg.close()">×</button><h2>${t("cmp_h")}</h2><table class="ct"><tr><th></th>${cs.map(([i,c])=>`<th>${art(c,i)}<div class="brand" style="margin-top:8px">${c.brand}</div>${c.model}</th>`).join("")}</tr>${row("Engine","engine",v=>v||"—")}${row("Body","body",v=>v)}${row("Fuel","fuel",v=>v)}${row(t("power"),"hp",v=>unit==="a"?v+" hp":Math.round(v*.7457)+" kW",m("hp",Math.max))}${row(AL(),"acc",v=>unit==="a"?v+" s":(v-.2).toFixed(1)+" s",m("acc",Math.min))}${row("Drivetrain","drive",v=>v)}<tr><td>${t("eco")}</td>${cs.map(([i,c])=>`<td>${ecoStr(ecoOf(c))}</td>`).join("")}</tr><tr><td>hp / tonne (est.)</td>${cs.map(([i,c])=>`<td>${wt(c)?Math.round(c.hp/wt(c)*1000):"—"}</td>`).join("")}</tr>${row("Approx. price","price",v=>fmt(v),m("price",Math.min))}</table>${charts}<p style="color:var(--muted);font-size:13px">Best value in each row is highlighted.</p></div>`;
 $("dlg").showModal();if(photoOK)$("dlg").querySelectorAll(".art").forEach(a=>attach(a,CARS[a.dataset.i]))}
 $("tb").onclick=cmp;$("nc").onclick=e=>{e.preventDefault();cmp()};
 $("dlg").addEventListener("click",e=>{if(e.target===$("dlg"))$("dlg").close()});
